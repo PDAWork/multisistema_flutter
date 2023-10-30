@@ -117,50 +117,65 @@ class Information extends StatelessWidget {
               Consumer<PageViewProvider>(
                 builder: (context, value, child) {
                   return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(
-                          onPressed: () {}, child: const Text('ПРОПУСТИТЬ')),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 7.5,
-                            height: 7.5,
-                            decoration: BoxDecoration(
-                              color: value.index == 0
-                                  ? Colors.white
-                                  : context.read<SettingsProvider>().setColorOfHour(),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                           width: 7.5,
-                            height: 7.5,
-                            decoration: BoxDecoration(
-                              color: value.index == 1
-                                  ? Colors.white
-                                  : context.read<SettingsProvider>().setColorOfHour(),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            width: 7.5,
-                            height: 7.5,
-                            decoration: BoxDecoration(
-                              color: value.index == 2
-                                  ? Colors.white
-                                  : context.read<SettingsProvider>().setColorOfHour(),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ],
+                      Expanded(
+                        child: TextButton(
+                            onPressed: () {}, child: const Text('ПРОПУСТИТЬ')),
                       ),
-                      TextButton(onPressed: () {}, child: const Text('ДАЛЬШЕ'))
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 7.5,
+                              height: 7.5,
+                              decoration: BoxDecoration(
+                                color: value.index == 0
+                                    ? Colors.white
+                                    : context
+                                        .read<SettingsProvider>()
+                                        .setColorOfHour(),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Container(
+                              width: 7.5,
+                              height: 7.5,
+                              decoration: BoxDecoration(
+                                color: value.index == 1
+                                    ? Colors.white
+                                    : context
+                                        .read<SettingsProvider>()
+                                        .setColorOfHour(),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Container(
+                              width: 7.5,
+                              height: 7.5,
+                              decoration: BoxDecoration(
+                                color: value.index == 2
+                                    ? Colors.white
+                                    : context
+                                        .read<SettingsProvider>()
+                                        .setColorOfHour(),
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {},
+                          child: value.index != 2
+                              ? const Text('ДАЛЬШЕ')
+                              : const Text("НАЧАТЬ РАБОТУ"),
+                        ),
+                      )
                     ],
                   );
                 },

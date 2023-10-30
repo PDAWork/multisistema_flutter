@@ -19,28 +19,23 @@ class PageOne extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Spacer(),
-          Expanded(
-            flex: 8,
-            child: Image.asset(path),
+          Image.asset(
+            path,
+            height: 370,
           ),
-          const SizedBox(height: 25),
-          Expanded(
-            child: Text(
-              header,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-              ),
+          const SizedBox(height: 20),
+          Text(
+            header,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
             ),
           ),
-          const SizedBox(height: 25),
-          Expanded(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white),
-            ),
+          const SizedBox(height: 20),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white),
           ),
         ],
       ),
