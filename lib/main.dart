@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multisitema_flutter/app/my_app.dart';
+import 'package:multisitema_flutter/utils/locator_service.dart';
 
-void main() {
-  
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLocatorService();
   runApp(const MyApp());
 }
 

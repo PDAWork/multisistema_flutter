@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:multisitema_flutter/app/ui/information/pages/page_one.dart';
+import 'package:multisitema_flutter/utils/settings_provider.dart';
 import 'package:provider/provider.dart';
-
-enum indexPage { onePage, twoPage, thirePage }
 
 class PageViewProvider with ChangeNotifier {
   PageController controller = PageController(keepPage: true);
-  PageViewProvider() {}
+
   int index = 0;
 
   void initialPage(int value) {
@@ -23,7 +22,7 @@ class PageViewProvider with ChangeNotifier {
 
   void back() {
     controller.previousPage(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.linear,
     );
   }
@@ -40,7 +39,6 @@ class Information extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build");
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
@@ -71,6 +69,7 @@ class Information extends StatelessWidget {
                     ),
                     Expanded(
                       child: PageView(
+                        physics: const BouncingScrollPhysics(),
                         onPageChanged:
                             context.read<PageViewProvider>().initialPage,
                         controller: context.read<PageViewProvider>().controller,
@@ -87,27 +86,31 @@ class Information extends StatelessWidget {
                             title:
                                 "Анализируйте расход с точностью до часа дня месяца на графиках. Графики можно масшабировать двумя пальцами",
                           ),
-                          Text('data3'),
+                          PageOne(
+                            path: 'assets/pctr_events.png',
+                            header: "Активация датчиков",
+                            title:
+                                "Получайте информацию о времени и продолжительности срабатывания датчиков",
+                          ),
                         ],
                       ),
                     ),
                     Consumer<PageViewProvider>(
-                        key: UniqueKey(),
-                        builder: (ctx, value, child) {
-                          return value.index != 2
-                              ? InkWell(
-                                  onTap: () {
-                                    context.read<PageViewProvider>().next();
-                                  },
-                                  child: const Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : SizedBox(
-                                  width: 24,
-                                );
-                        }),
+                      key: UniqueKey(),
+                      builder: (ctx, value, child) {
+                        return value.index != 2
+                            ? InkWell(
+                                onTap: () {
+                                  context.read<PageViewProvider>().next();
+                                },
+                                child: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const SizedBox(width: 24);
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -116,47 +119,48 @@ class Information extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextButton(onPressed: () {}, child: Text('Пропустить')),
+                      TextButton(
+                          onPressed: () {}, child: const Text('ПРОПУСТИТЬ')),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 10.0,
-                            height: 10.0,
+                            width: 7.5,
+                            height: 7.5,
                             decoration: BoxDecoration(
                               color: value.index == 0
                                   ? Colors.white
-                                  : const Color.fromARGB(160, 255, 128, 38),
+                                  : context.read<SettingsProvider>().setColorOfHour(),
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 5),
                           Container(
-                            width: 10.0,
-                            height: 10.0,
+                           width: 7.5,
+                            height: 7.5,
                             decoration: BoxDecoration(
                               color: value.index == 1
                                   ? Colors.white
-                                  : const Color.fromARGB(160, 255, 128, 38),
+                                  : context.read<SettingsProvider>().setColorOfHour(),
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 5),
                           Container(
-                            width: 10.0,
-                            height: 10.0,
+                            width: 7.5,
+                            height: 7.5,
                             decoration: BoxDecoration(
                               color: value.index == 2
                                   ? Colors.white
-                                  : const Color.fromARGB(160, 255, 128, 38),
+                                  : context.read<SettingsProvider>().setColorOfHour(),
                               shape: BoxShape.circle,
                             ),
                           ),
                         ],
                       ),
-                      TextButton(onPressed: () {}, child: Text('Дальше'))
+                      TextButton(onPressed: () {}, child: const Text('ДАЛЬШЕ'))
                     ],
                   );
                 },
