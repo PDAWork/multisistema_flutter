@@ -3,6 +3,8 @@ import 'package:multisitema_flutter/app/ui/information/pages/page_one.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/nav.dart';
+
 class PageViewProvider with ChangeNotifier {
   PageController controller = PageController(keepPage: true);
 
@@ -170,7 +172,12 @@ class Information extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if(value.index == 2){
+                              Navigator.pushNamedAndRemoveUntil(context, Nav.splashScreen, (route) => false);
+                            }
+                            context.read<PageViewProvider>().next();
+                          },
                           child: value.index != 2
                               ? const Text('ДАЛЬШЕ')
                               : const Text("НАЧАТЬ РАБОТУ"),

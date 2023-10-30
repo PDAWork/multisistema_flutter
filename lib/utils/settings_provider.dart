@@ -20,4 +20,18 @@ class SettingsProvider {
     }
     return ThemeApp.colorNight;
   }
+
+  String greeting() {
+    if (_hour > 0 && _hour < 5) {
+      return "Доброй ночи,";
+    } else if (_hour >= 5 && _hour < 10) {
+      return "Доброе утро,";
+    } else if (_hour >= 10 && _hour < 18) {
+      return "Добрый день,";
+    } else if (_hour >= 18 && _hour < 22) {
+      return "Добрый вечер,";
+    } else {
+      return "Доброй ночи,";
+    }
+  }
 }
