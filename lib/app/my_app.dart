@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/ui/auth/sign_in.dart';
 import 'package:multisitema_flutter/utils/nav.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
+import 'package:multisitema_flutter/utils/theme_app.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
       create: (context) => SettingsProvider(),
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor: const Color(0xfffBF1E27),
+          colorScheme: const ColorScheme.light(primary: ThemeApp.primaryColor),
+          primaryColor: ThemeApp.primaryColor,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: ThemeApp.primaryColor,
+          ),
           textButtonTheme: const TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: MaterialStatePropertyAll(Colors.white),

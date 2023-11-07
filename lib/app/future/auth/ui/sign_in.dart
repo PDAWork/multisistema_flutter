@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/ui/auth/widget/custom_icon_auth.dart';
-
-import '../../../utils/nav.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
+import 'package:multisitema_flutter/utils/settings_provider.dart';
+import '../../../../../utils/nav.dart';
+import 'widget/custom_icon_auth.dart';
 
 class SignIn extends StatelessWidget {
   SignIn({super.key});
@@ -14,7 +16,7 @@ class SignIn extends StatelessWidget {
       body: Stack(
         children: [
           Positioned.fill(
-            bottom: -MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
             child: const DecoratedBox(
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -41,7 +43,7 @@ class SignIn extends StatelessWidget {
                   ),
                   Container(
                     color: Colors.white,
-                    child: const Row(
+                    child: Row(
                       children: [
                         CustomIconAuth(
                           icon: Icons.lock,
@@ -50,6 +52,7 @@ class SignIn extends StatelessWidget {
                         SizedBox(width: 20),
                         Expanded(
                           child: TextField(
+                            // controller: context.read<AuthCubit>().email,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Email",
@@ -65,7 +68,7 @@ class SignIn extends StatelessWidget {
                       Expanded(
                         child: Container(
                           color: Colors.white,
-                          child: const Row(
+                          child: Row(
                             children: [
                               CustomIconAuth(
                                 icon: Icons.person,
@@ -74,6 +77,8 @@ class SignIn extends StatelessWidget {
                               SizedBox(width: 20),
                               Expanded(
                                 child: TextField(
+                                  // controller:
+                                      // context.read<AuthCubit>().password,
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Пароль",
@@ -112,20 +117,39 @@ class SignIn extends StatelessWidget {
                       )),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                        style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                            Color(0xfffbf1e27),
-                          ),
-                        ),
-                        onPressed: () {
+                    child: BlocConsumer<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthSucess) {
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             Nav.info,
                             (t) => false,
                           );
-                        },
-                        child: const Text('Войти')),
+                          return;
+                        }
+                        if (state is AuthError) {
+                          context
+                              .read<SettingsProvider>()
+                              .showMessageDialog('Ошибка');
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is AuthLoading) {
+                          return CircularProgressIndicator();
+                        }
+                        return ElevatedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                              Color(0xfffbf1e27),
+                            ),
+                          ),
+                          onPressed: () {
+                            context.read<AuthCubit>().login();
+                          },
+                          child: const Text('Войти'),
+                        );
+                      },
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 15),

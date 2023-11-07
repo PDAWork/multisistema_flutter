@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/ui/information/pages/page_one.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utils/nav.dart';
+import '../../../../utils/nav.dart';
+import 'pages/page_one.dart';
 
 class PageViewProvider with ChangeNotifier {
   PageController controller = PageController(keepPage: true);
@@ -121,8 +121,16 @@ class Information extends StatelessWidget {
                   return Row(
                     children: [
                       Expanded(
+                        flex: 2,
                         child: TextButton(
-                            onPressed: () {}, child: const Text('ПРОПУСТИТЬ')),
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                Nav.splashScreen,
+                                (route) => false,
+                              );
+                            },
+                            child: const Text('ПРОПУСТИТЬ')),
                       ),
                       Expanded(
                         child: Row(
@@ -171,10 +179,12 @@ class Information extends StatelessWidget {
                         ),
                       ),
                       Expanded(
+                        flex: 2,
                         child: TextButton(
                           onPressed: () {
-                            if(value.index == 2){
-                              Navigator.pushNamedAndRemoveUntil(context, Nav.splashScreen, (route) => false);
+                            if (value.index == 2) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, Nav.splashScreen, (route) => false);
                             }
                             context.read<PageViewProvider>().next();
                           },

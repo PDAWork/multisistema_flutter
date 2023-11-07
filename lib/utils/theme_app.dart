@@ -6,8 +6,5 @@ abstract final class ThemeApp {
   static const Color colorMorning = Color(0xFFFFF8A65);
   static const Color colorEvening = Color(0xFFFCE93D8);
 
-
-
-
+  static const Color primaryColor = Color(0xfffBF1E27);
 }
-
