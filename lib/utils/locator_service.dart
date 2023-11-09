@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source_impl.dart';
-import 'package:multisitema_flutter/app/future/auth/model/repository/auth_repository.dart';
 import 'package:multisitema_flutter/app/future/auth/data/repository/auth_repository_impl.dart';
+import 'package:multisitema_flutter/app/future/auth/model/repository/auth_repository.dart';
+import 'package:multisitema_flutter/app/future/auth/model/usecase/auth_use_cases.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
 import 'package:multisitema_flutter/utils/api_entrypoints.dart';
 import 'package:multisitema_flutter/utils/interceptor_app.dart';
@@ -29,25 +29,24 @@ Future<void> initLocatorService() async {
 
   // Bloc/Cubit
 
-  sl.registerFactory(() => AuthCubit());
+  sl.registerFactory(() => AuthCubit(sl()));
+
+  // UseCases
+
+  sl.registerLazySingleton(() => AuthUseCases(authRepository: sl()));
 
   // Repository
-
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      authRemoteDataSource: sl(),
-    ),
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+        authRemoteDataSource: sl(),
+        authLocalDataSource: sl(),
+      ));
+  // Remote/Local
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(sl()),
   );
 
-  // Remote/Local
   sl.registerLazySingleton<AuthLocalDataSource>(
-      () => AuthLocalDataSourceImpl(sl()));
-
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(
-      sl(),
-      sl(),
-    ),
+    () => AuthLocalDataSourceImpl(sl()),
   );
 
   // External

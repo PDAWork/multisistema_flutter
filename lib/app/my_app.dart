@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/utils/nav.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
 import 'package:multisitema_flutter/utils/theme_app.dart';
@@ -11,22 +12,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (context) => SettingsProvider(),
-      child: MaterialApp(
-        theme: ThemeData(
-          colorScheme: const ColorScheme.light(primary: ThemeApp.primaryColor),
-          primaryColor: ThemeApp.primaryColor,
-          appBarTheme: const AppBarTheme(
-            backgroundColor: ThemeApp.primaryColor,
-          ),
-          textButtonTheme: const TextButtonThemeData(
-            style: ButtonStyle(
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
+      builder: (ctx, child) {
+        return MaterialApp(
+          theme: ThemeData(
+            colorScheme:
+                const ColorScheme.light(primary: ThemeApp.primaryColor),
+            primaryColor: ThemeApp.primaryColor,
+            appBarTheme: const AppBarTheme(
+              backgroundColor: ThemeApp.primaryColor,
+            ),
+            textButtonTheme: const TextButtonThemeData(
+              style: ButtonStyle(
+                foregroundColor: MaterialStatePropertyAll(Colors.white),
+              ),
             ),
           ),
-        ),
-        initialRoute: Nav.signIn,
-        onGenerateRoute: Nav.onGenerateRoute,
-      ),
+          initialRoute: ctx.read<SettingsProvider>().isAuthGet
+              ? Nav.splashScreen
+              : Nav.signIn,
+          onGenerateRoute: Nav.onGenerateRoute,
+        );
+      },
     );
   }
 }

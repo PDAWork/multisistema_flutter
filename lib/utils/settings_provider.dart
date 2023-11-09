@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
+import 'package:multisitema_flutter/utils/key_shared_preferences.dart';
+import 'package:multisitema_flutter/utils/locator_service.dart';
 import 'package:multisitema_flutter/utils/theme_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider {
   SettingsProvider() {
     _hour = DateTime.now().hour;
+    SharedPreferences _sharedPreferences = sl<SharedPreferences>();
+    _isAuth = _sharedPreferences.getString(KeySharedPreferences.keyEmail) != null;
   }
 
-  final bool isAuth = true;
+  /// false не авторизован true авторизонва
+  bool _isAuth = false;
 
-  void init() async {}
+  get isAuthGet => _isAuth;
 
   int _hour = 0;
 
@@ -39,49 +46,48 @@ class SettingsProvider {
     }
   }
 
-  final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
-
-  void showMessageDialog(String title) {
-    final context = _scaffoldKey.currentState!.context;
+  void showMessageDialog(String title, BuildContext context) {
     final query = MediaQuery.of(context);
     final height = query.size.height * 0.023 < 20
         ? 20.0
         : MediaQuery.of(context).size.height * 0.023;
-    SnackBar(
-      dismissDirection: DismissDirection.startToEnd,
-      backgroundColor: Colors.white60.withOpacity(.90),
-      content: SizedBox(
-        height: height,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        dismissDirection: DismissDirection.startToEnd,
+        backgroundColor: Colors.white60.withOpacity(.90),
+        content: SizedBox(
+          height: height,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            SizedBox(
-              width: height,
-              height: height,
-              child: Icon(
-                Icons.check,
-                size: height,
-                color: Colors.red,
+              SizedBox(
+                width: height,
+                height: height,
+                child: Icon(
+                  Icons.check,
+                  size: height,
+                  color: Colors.red,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(6),
+          ),
         ),
+        margin: const EdgeInsets.all(12),
+        behavior: SnackBarBehavior.floating,
       ),
-      margin: const EdgeInsets.all(12),
-      behavior: SnackBarBehavior.floating,
     );
   }
 }

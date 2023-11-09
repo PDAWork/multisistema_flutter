@@ -1,6 +1,18 @@
-class Fauler {
-  Fauler({this.message = ""});
-  String message;
+class AuthorizationExeption implements Exception {
+  final String message;
+
+  AuthorizationExeption({this.message = ''});
+}
+
+class ServerExeption implements Exception {
+  final String message;
+
+  ServerExeption({this.message = ''});
+}
+
+abstract interface class Failure {
+  Failure({this.message = ""});
+  final String message;
 
   @override
   String toString() {
@@ -8,9 +20,14 @@ class Fauler {
   }
 }
 
-final class AuthorizationExeption extends Fauler {
-  AuthorizationExeption({String message = ""}) : super(message: message);
+class AuthorizationFailure extends Failure {
+  AuthorizationFailure({String message = ""}) : super(message: message);
 }
-final class SidExeption extends Fauler {
-  SidExeption({String message = ""}) : super(message: message);
+
+class ServerFailure extends Failure {
+  ServerFailure({String message = ""}) : super(message: message);
+}
+
+class SidFailure extends Failure {
+  SidFailure({String message = ""}) : super(message: message);
 }

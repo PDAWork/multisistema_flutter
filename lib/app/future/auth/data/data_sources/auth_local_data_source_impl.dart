@@ -1,49 +1,62 @@
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'auth_local_data_source.dart';
+import '../../../../../utils/key_shared_preferences.dart';
+
+abstract interface class AuthLocalDataSource {
+  void setSid(String sid);
+
+  String getSid();
+
+  void setUserProfile(UserProfileDTO userProfileDTO);
+
+  UserProfileDTO getUserProfile();
+
+  bool getAuthUser();
+}
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  SharedPreferences _preferences;
+  final SharedPreferences _preferences;
 
-  final String _keySid = 'SID';
-  final String _keyEmail = 'EMAIL';
-  final String _keyFirstName = 'FIRSTNAME';
-  final String _keyLastName = 'LASTNAME';
-  final String _keyPhone = 'PHONE';
-
-  AuthLocalDataSourceImpl(SharedPreferences preferences)
-      : _preferences = preferences;
+  AuthLocalDataSourceImpl(this._preferences);
 
   @override
   String getSid() {
-    return _preferences.getString(_keySid) ?? '';
+    return _preferences.getString(KeySharedPreferences.keySid) ?? '';
   }
 
   @override
   UserProfileDTO getUserProfile() {
-    final String email = _preferences.getString(_keyEmail) ?? "";
-    final String firstName = _preferences.getString(_keyFirstName) ?? "";
-    final String lastName = _preferences.getString(_keyLastName) ?? "";
-    final String phone = _preferences.getString(_keyPhone) ?? "";
+    final String email =
+        _preferences.getString(KeySharedPreferences.keyEmail) ?? "";
+    final String firstName =
+        _preferences.getString(KeySharedPreferences.keyFirstName) ?? "";
+    final String lastName =
+        _preferences.getString(KeySharedPreferences.keyLastName) ?? "";
+    final String phone =
+        _preferences.getString(KeySharedPreferences.keyPhone) ?? "";
     return UserProfileDTO(
         email: email, firstName: firstName, lastName: lastName, phone: phone);
   }
 
   @override
   void setSid(String sid) {
-    if (!sid.contains(''))
-      _preferences.setString(_keySid, sid);
-    else
-      _preferences.remove(_keySid);
+    !sid.contains('')
+        ? _preferences.setString(KeySharedPreferences.keySid, sid)
+        : _preferences.remove(KeySharedPreferences.keySid);
   }
 
   @override
   void setUserProfile(UserProfileDTO userProfileDTO) {
     _preferences
-      ..setString(_keyEmail, userProfileDTO.email)
-      ..setString(_keyFirstName, userProfileDTO.firstName)
-      ..setString(_keyLastName, userProfileDTO.lastName)
-      ..setString(_keyPhone, userProfileDTO.phone);
+      ..setString(KeySharedPreferences.keyEmail, userProfileDTO.email)
+      ..setString(KeySharedPreferences.keyFirstName, userProfileDTO.firstName)
+      ..setString(KeySharedPreferences.keyLastName, userProfileDTO.lastName)
+      ..setString(KeySharedPreferences.keyPhone, userProfileDTO.phone);
+  }
+
+  @override
+  bool getAuthUser() {
+    return _preferences.getString(KeySharedPreferences.keyEmail) != null;
   }
 }

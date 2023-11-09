@@ -7,22 +7,17 @@ import 'package:multisitema_flutter/utils/api_entrypoints.dart';
 
 class InterceptorApp extends QueuedInterceptor {
   // final AuthRemoteDataSourceImpl _authRemoteDataSourceImpl;
-  final AuthLocalDataSourceImpl _authLocalDataSourceImpl;
+  final AuthLocalDataSource _authLocalDataSourceImpl;
   String _email = '';
   String _password = '';
 
-  InterceptorApp({required AuthLocalDataSourceImpl authLocalDataSourceImpl})
+  InterceptorApp({required AuthLocalDataSource authLocalDataSourceImpl})
       : _authLocalDataSourceImpl = authLocalDataSourceImpl;
-
-  @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
-    super.onError(err, handler);
-  }
 
   @override
   FutureOr<dynamic> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) {
-    if (options.path.contains(ApiEndpoints.login))
+    if (options.path.contains(ApiEndpoints.login)) {
       for (var element in (options.data as FormData).fields) {
         switch (element.key) {
           case "password":
@@ -37,6 +32,7 @@ class InterceptorApp extends QueuedInterceptor {
             }
         }
       }
+    }
     super.onRequest(options, handler);
   }
 
@@ -55,8 +51,9 @@ class InterceptorApp extends QueuedInterceptor {
             },
           ),
         );
-        if (responseLogin.data['status'] == 'ok')
+        if (responseLogin.data['status'] == 'ok') {
           _authLocalDataSourceImpl.setSid(responseLogin.data['data']['sid']);
+        }
       }
     }
     super.onResponse(response, handler);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
+import 'package:multisitema_flutter/utils/theme_app.dart';
 import '../../../../../utils/nav.dart';
 import 'widget/custom_icon_auth.dart';
 
@@ -45,15 +46,15 @@ class SignIn extends StatelessWidget {
                     color: Colors.white,
                     child: Row(
                       children: [
-                        CustomIconAuth(
+                        const CustomIconAuth(
                           icon: Icons.lock,
                           iconColor: Colors.white,
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         Expanded(
                           child: TextField(
-                            // controller: context.read<AuthCubit>().email,
-                            decoration: InputDecoration(
+                            controller: context.read<AuthCubit>().email,
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Email",
                             ),
@@ -70,16 +71,16 @@ class SignIn extends StatelessWidget {
                           color: Colors.white,
                           child: Row(
                             children: [
-                              CustomIconAuth(
+                              const CustomIconAuth(
                                 icon: Icons.person,
                                 iconColor: Colors.white,
                               ),
-                              SizedBox(width: 20),
+                              const SizedBox(width: 20),
                               Expanded(
                                 child: TextField(
-                                  // controller:
-                                      // context.read<AuthCubit>().password,
-                                  decoration: InputDecoration(
+                                  controller:
+                                      context.read<AuthCubit>().password,
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Пароль",
                                   ),
@@ -100,7 +101,7 @@ class SignIn extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : SizedBox(
+                          : const SizedBox(
                               width: 0,
                             )
                     ],
@@ -113,34 +114,41 @@ class SignIn extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: const Text(
                         'Восстановить пароль',
-                        style: TextStyle(color: Color(0xfff9c9c9c)),
+                        style: TextStyle(color: Color(0xff9c9c9c)),
                       )),
                   SizedBox(
                     width: double.infinity,
                     child: BlocConsumer<AuthCubit, AuthState>(
                       listener: (context, state) {
                         if (state is AuthSucess) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            Nav.info,
-                            (t) => false,
+                          FocusScope.of(context).unfocus();
+                          Future.delayed(const Duration(milliseconds: 100))
+                              .then(
+                            (value) => Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Nav.info,
+                              (t) => false,
+                            ),
                           );
+
                           return;
                         }
                         if (state is AuthError) {
-                          context
-                              .read<SettingsProvider>()
-                              .showMessageDialog('Ошибка');
+                          context.read<SettingsProvider>().showMessageDialog(
+                                state.message,
+                                context,
+                              );
                         }
                       },
-                      builder: (context, state) {
+                      builder: (ctx, state) {
                         if (state is AuthLoading) {
-                          return CircularProgressIndicator();
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         return ElevatedButton(
                           style: const ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(
-                              Color(0xfffbf1e27),
+                              ThemeApp.primaryColor,
                             ),
                           ),
                           onPressed: () {
@@ -151,11 +159,16 @@ class SignIn extends StatelessWidget {
                       },
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    child: Text(
-                      'Демо режим',
-                      style: TextStyle(color: Color(0xfffBBDEFB)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: InkWell(
+                      onTap: () {
+                        context.read<AuthCubit>().login();
+                      },
+                      child: const Text(
+                        'Демо режим',
+                        style: TextStyle(color: ThemeApp.colorTextDemo),
+                      ),
                     ),
                   ),
                 ],

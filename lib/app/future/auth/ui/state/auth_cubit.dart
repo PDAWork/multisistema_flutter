@@ -1,22 +1,27 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-
+import 'package:multisitema_flutter/app/future/auth/model/usecase/auth_use_cases.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit(this.authUseCases) : super(AuthInitial());
 
-  // final AuthRepository authRepository;
+  final AuthUseCases authUseCases;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  void login() async {
+  void login({bool isDemo = false}) async {
+    if (!isDemo) {
+      email.text = 'demo@saures.ru';
+      password.text = 'demo';
+    }
     emit(AuthLoading());
-    // final result = await authRepository.login(password.text, email.text);
+    final result = await authUseCases.login(email.text, password.text);
 
-    // if (result.$1 is AuthorizationExeption) {
-    //   return emit(AuthError());
-    // }
+    result.fold(
+      (l) => emit(AuthError(message: l.message)),
+      (r) => emit(AuthSucess()),
+    );
   }
 }

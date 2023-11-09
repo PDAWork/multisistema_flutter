@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:multisitema_flutter/app/future/auth/model/repository/auth_repository.dart';
-import 'package:multisitema_flutter/app/future/auth/data/repository/auth_repository_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/ui/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +17,10 @@ class Nav {
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     return switch (settings.name) {
-      home => MaterialPageRoute(builder: (ctx) => Home()),
+      home => MaterialPageRoute(builder: (ctx) => const Home()),
       signIn => MaterialPageRoute(
           builder: (ctx) => BlocProvider(
-            create: (context) => sl<AuthCubit>(),
+            create: (ctx) => sl<AuthCubit>(),
             child: SignIn(),
           ),
         ),
@@ -35,7 +33,7 @@ class Nav {
       splashScreen => MaterialPageRoute(
           builder: (ctx) => const SplashScreen(),
         ),
-      _ => MaterialPageRoute(builder: (ctx) => Placeholder())
+      _ => MaterialPageRoute(builder: (ctx) => const Placeholder())
     };
   }
 }

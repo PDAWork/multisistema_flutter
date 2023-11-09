@@ -13,8 +13,8 @@ class DrawerApp extends StatelessWidget {
     return Drawer(
       // backgroundColor: ThemeApp.primaryColor,
       child: ListView(
-
-        physics: const PageScrollPhysics() , //const AlwaysScrollableScrollPhysics()
+        physics:
+            const PageScrollPhysics(), //const AlwaysScrollableScrollPhysics()
         padding: EdgeInsets.zero,
         shrinkWrap: true,
         children: [
@@ -24,12 +24,11 @@ class DrawerApp extends StatelessWidget {
               Icons.person,
               size: 60,
             ),
-            currentAccountPictureSize: Size.square(1),
+            currentAccountPictureSize: const Size.square(1),
             accountEmail: Text(emailPerson),
             accountName: Text(
               userNamePerson,
             ),
-           
           ),
           ListTile(
             onTap: () {},
@@ -44,7 +43,7 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.share),
-            title: Text('Инструкция'),
+            title: const Text('Инструкция'),
           ),
           ListTile(
             onTap: () {},

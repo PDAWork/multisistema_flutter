@@ -1,24 +1,22 @@
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
-import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
-import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_login_dto.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
 import 'package:multisitema_flutter/utils/api_entrypoints.dart';
 import 'package:multisitema_flutter/utils/fauler.dart';
 
+import 'auth_remote_data_source.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Dio _dio;
-  final AuthLocalDataSourceImpl _authLocalDataSourceImpl;
 
-  AuthRemoteDataSourceImpl(this._dio, this._authLocalDataSourceImpl);
+  AuthRemoteDataSourceImpl(this._dio);
 
   @override
   Future<void> userRegister() async {}
 
   @override
-  Future<(Fauler, BodyResponse<UserLoginDTO>)> login(
+  Future<BodyResponse<UserLoginDTO>> login(
     String login,
     String password,
   ) async {
@@ -35,46 +33,32 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final response = BodyResponse<UserLoginDTO>.fromJson(result.data);
 
       if (response.status.contains('bad')) {
-        return (
-          AuthorizationExeption(message: response.errors.first.msg),
-          BodyResponse<UserLoginDTO>.empty(''),
-        );
+        throw AuthorizationExeption(message: 'Неправильный email или пароль');
       }
 
-      _authLocalDataSourceImpl.setSid(response.data.sid);
-
-      return (Fauler(), response);
-    } on DioException catch (e) {
-      return (
-        Fauler(message: e.message ?? ""),
-        BodyResponse<UserLoginDTO>.empty(e.message ?? 'Ошибка')
-      );
+      return response;
+    } on DioException {
+      throw ServerExeption(message: 'Техническая ошибка');
     }
   }
 
   @override
-  Future<(Fauler, BodyResponse<UserProfileDTO>)> userProfile(String sid) async {
+  Future<BodyResponse<UserProfileDTO>> userProfile(String sid) async {
     try {
       final result = await _dio.get(
         '${ApiEndpoints.userProfile}?sid=$sid',
       );
+
       final response = BodyResponse<UserProfileDTO>.fromJson(result.data);
+
       if (response.status.contains('bad')) {
         final errorMessage = response.errors.first.msg;
-        return (
-          SidExeption(message: errorMessage),
-          BodyResponse<UserProfileDTO>.empty(errorMessage),
-        );
+        throw AuthorizationExeption(message: errorMessage);
       }
 
-      _authLocalDataSourceImpl.setUserProfile(response.data);
-
-      return (Fauler(), response);
-    } on DioException catch (e) {
-      return (
-        Fauler(message: e.message ?? ''),
-        BodyResponse<UserProfileDTO>.empty(e.message ?? ''),
-      );
+      return response;
+    } on DioException {
+      throw ServerExeption(message: 'Техническая ошибка');
     }
   }
 }
