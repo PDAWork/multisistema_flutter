@@ -3,20 +3,22 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
+import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/utils/api_entrypoints.dart';
+import 'package:multisitema_flutter/utils/locator_service.dart';
 
 class InterceptorApp extends QueuedInterceptor {
   // final AuthRemoteDataSourceImpl _authRemoteDataSourceImpl;
   final AuthLocalDataSource _authLocalDataSourceImpl;
   String _email = '';
   String _password = '';
+  String _sid = '';
 
   InterceptorApp({required AuthLocalDataSource authLocalDataSourceImpl})
       : _authLocalDataSourceImpl = authLocalDataSourceImpl;
 
   @override
-  FutureOr<dynamic> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (options.path.contains(ApiEndpoints.login)) {
       for (var element in (options.data as FormData).fields) {
         switch (element.key) {
@@ -32,27 +34,47 @@ class InterceptorApp extends QueuedInterceptor {
             }
         }
       }
+    } else {
+      if (_sid != '') {
+        String path = options.path.replaceAll(RegExp('sid=[^&]+'), 'sid=$_sid');
+        super.onRequest(options.copyWith(path: path), handler);
+      }
     }
     super.onRequest(options, handler);
   }
 
   @override
-  FutureOr<dynamic> onResponse(
-      Response response, ResponseInterceptorHandler handler) async {
+  void onResponse(Response response, ResponseInterceptorHandler handler) async {
     final resultResposnse = BodyResponse.fromJson(response.data);
     if (resultResposnse.status.contains('bad')) {
       if (resultResposnse.errors.first.msg.contains('Неверный sid')) {
-        final responseLogin = await Dio().post(
-          '${ApiEndpoints.baseUrl}${ApiEndpoints.login}',
-          data: FormData.fromMap(
-            {
-              'email': _email,
-              'password': _password,
-            },
-          ),
-        );
-        if (responseLogin.data['status'] == 'ok') {
-          _authLocalDataSourceImpl.setSid(responseLogin.data['data']['sid']);
+        try {
+          if (_email.contains('') && _password.contains('')) {
+            final result = _authLocalDataSourceImpl.getLogin();
+            _email = result.$1;
+            _password = result.$2;
+          }
+          final responseLogin = await Dio().post(
+            '${ApiEndpoints.baseUrl}${ApiEndpoints.login}',
+            data: FormData.fromMap(
+              {
+                'email': _email,
+                'password': _password,
+              },
+            ),
+          );
+
+          if (responseLogin.data['status'] == 'ok') {
+            _sid = responseLogin.data['data']['sid'];
+            _authLocalDataSourceImpl.setSid(_sid);
+          }
+
+          final test =
+              await sl<AuthRemoteDataSource>().fetch(response.requestOptions);
+          return handler.resolve(test);
+        } on DioException catch (e) {
+          print(e.error);
+          return handler.resolve(e.response ?? response);
         }
       }
     }

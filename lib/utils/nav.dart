@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/ui/splash_screen.dart';
+import 'package:multisitema_flutter/app/future/splashscreen/ui/state/cubit/splash_screen_cubit.dart';
 import 'package:provider/provider.dart';
 
 import '../app/future/auth/ui/sign_in.dart';
@@ -31,7 +32,10 @@ class Nav {
           ),
         ),
       splashScreen => MaterialPageRoute(
-          builder: (ctx) => const SplashScreen(),
+          builder: (ctx) => BlocProvider(
+            create: (context) => sl<SplashScreenCubit>()..init(),
+            child: SplashScreen(),
+          ),
         ),
       _ => MaterialPageRoute(builder: (ctx) => const Placeholder())
     };

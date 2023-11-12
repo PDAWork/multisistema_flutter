@@ -22,6 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
       String password, String login) async {
     try {
       final result = await authRemoteDataSource.login(login, password);
+      authLocalDataSource.setLogin(login, password);
       authLocalDataSource.setSid(result.data.sid);
       return right(result.data);
     } on AuthorizationExeption catch (e) {

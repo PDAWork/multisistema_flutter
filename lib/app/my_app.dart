@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/utils/nav.dart';
 import 'package:multisitema_flutter/utils/settings_provider.dart';
 import 'package:multisitema_flutter/utils/theme_app.dart';

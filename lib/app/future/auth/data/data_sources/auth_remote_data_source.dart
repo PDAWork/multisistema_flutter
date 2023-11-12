@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
 
@@ -14,4 +15,7 @@ abstract interface class AuthRemoteDataSource {
   Future<BodyResponse<UserProfileDTO>> userProfile(String sid);
 
   Future<void> userRegister();
+
+
+  Future<dynamic> fetch(RequestOptions options);
 }

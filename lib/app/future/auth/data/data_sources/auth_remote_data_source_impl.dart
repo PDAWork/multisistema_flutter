@@ -61,4 +61,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       throw ServerExeption(message: 'Техническая ошибка');
     }
   }
+
+  Future fetch(RequestOptions options) {
+    try {
+      return _dio.fetch(options);
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

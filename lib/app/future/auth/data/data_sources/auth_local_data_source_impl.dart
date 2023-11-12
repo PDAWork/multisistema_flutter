@@ -12,6 +12,10 @@ abstract interface class AuthLocalDataSource {
 
   UserProfileDTO getUserProfile();
 
+  void setLogin(String email, String password);
+
+  (String, String) getLogin();
+
   bool getAuthUser();
 }
 
@@ -41,7 +45,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   void setSid(String sid) {
-    !sid.contains('')
+    sid.contains('')
         ? _preferences.setString(KeySharedPreferences.keySid, sid)
         : _preferences.remove(KeySharedPreferences.keySid);
   }
@@ -49,10 +53,24 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   void setUserProfile(UserProfileDTO userProfileDTO) {
     _preferences
-      ..setString(KeySharedPreferences.keyEmail, userProfileDTO.email)
       ..setString(KeySharedPreferences.keyFirstName, userProfileDTO.firstName)
       ..setString(KeySharedPreferences.keyLastName, userProfileDTO.lastName)
       ..setString(KeySharedPreferences.keyPhone, userProfileDTO.phone);
+  }
+
+  @override
+  void setLogin(String email, String password) {
+    _preferences
+      ..setString(KeySharedPreferences.keyEmail, email)
+      ..setString(KeySharedPreferences.keyPassword, password);
+  }
+
+  @override
+  (String, String) getLogin() {
+    return (
+      _preferences.getString(KeySharedPreferences.keyEmail) ?? "",
+      _preferences.getString(KeySharedPreferences.keyPassword) ?? ""
+    );
   }
 
   @override

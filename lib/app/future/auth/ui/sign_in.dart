@@ -130,7 +130,6 @@ class SignIn extends StatelessWidget {
                               (t) => false,
                             ),
                           );
-
                           return;
                         }
                         if (state is AuthError) {
@@ -152,7 +151,7 @@ class SignIn extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            context.read<AuthCubit>().login();
+                            context.read<AuthCubit>().login(isDemo: true);
                           },
                           child: const Text('Войти'),
                         );

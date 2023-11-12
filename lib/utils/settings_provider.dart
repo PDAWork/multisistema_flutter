@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
-import 'package:multisitema_flutter/utils/key_shared_preferences.dart';
 import 'package:multisitema_flutter/utils/locator_service.dart';
 import 'package:multisitema_flutter/utils/theme_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider {
   SettingsProvider() {
     _hour = DateTime.now().hour;
-    SharedPreferences _sharedPreferences = sl<SharedPreferences>();
-    _isAuth = _sharedPreferences.getString(KeySharedPreferences.keyEmail) != null;
+    final localSource = sl<AuthLocalDataSource>();
+    final userProfile = localSource.getUserProfile();
+    _isAuth = userProfile.email.contains('');
   }
 
   /// false не авторизован true авторизонва
   bool _isAuth = false;
-
-  get isAuthGet => _isAuth;
+  bool get isAuthGet => _isAuth;
 
   int _hour = 0;
 
