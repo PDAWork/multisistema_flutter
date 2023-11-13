@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
 import 'tariff_dto.dart';
@@ -5,7 +6,7 @@ import 'tariff_dto.dart';
 part 'object_dto.g.dart';
 
 @HiveType(typeId: 1)
-class ObjectDTO extends HiveObject {
+class ObjectDTO extends HiveObject with EquatableMixin {
   @HiveField(0)
   final int id;
 
@@ -118,4 +119,24 @@ class ObjectDTO extends HiveObject {
       accessLevel: '',
     );
   }
+
+  @override
+  List<Object?> get props => [
+        this.id,
+        this.number,
+        this.label,
+        this.house,
+        this.personalAccount,
+        this.enable,
+        this.tarrifsList,
+        this.utc,
+        this.longitude,
+        this.latitude,
+        this.objectCompanyName,
+        this.objectCompanyInn,
+        this.objectCompanyAccount,
+        this.objectCompanyUrl,
+        this.connectDT,
+        this.accessLevel,
+      ];
 }

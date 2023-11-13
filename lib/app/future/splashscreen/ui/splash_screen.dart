@@ -25,18 +25,18 @@ class SplashScreen extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
                 context, Nav.home, (route) => false);
           }
-          if (state is ExeptionSplashScreen) {
-            context
-                .read<SettingsProvider>()
-                .showMessageDialog(state.message, context);
-            Future.delayed(
-              const Duration(seconds: 1),
-              () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, Nav.signIn, (route) => false);
-              },
-            );
-          }
+          // if (state is ExeptionSplashScreen) {
+          //   context
+          //       .read<SettingsProvider>()
+          //       .showMessageDialog(state.message, context);
+          //   Future.delayed(
+          //     const Duration(seconds: 1),
+          //     () {
+          //       Navigator.pushNamedAndRemoveUntil(
+          //           context, Nav.signIn, (route) => false);
+          //     },
+          //   );
+          // }
         },
         builder: (context, state) {
           return Stack(

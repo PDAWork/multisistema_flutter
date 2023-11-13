@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
@@ -48,33 +46,38 @@ class InterceptorApp extends QueuedInterceptor {
     final resultResposnse = BodyResponse.fromJson(response.data);
     if (resultResposnse.status.contains('bad')) {
       if (resultResposnse.errors.first.msg.contains('Неверный sid')) {
-        try {
-          if (_email.contains('') && _password.contains('')) {
-            final result = _authLocalDataSourceImpl.getLogin();
-            _email = result.$1;
-            _password = result.$2;
-          }
-          final responseLogin = await Dio().post(
-            '${ApiEndpoints.baseUrl}${ApiEndpoints.login}',
-            data: FormData.fromMap(
-              {
-                'email': _email,
-                'password': _password,
-              },
-            ),
-          );
+        var responseLogin = null;
 
-          if (responseLogin.data['status'] == 'ok') {
-            _sid = responseLogin.data['data']['sid'];
-            _authLocalDataSourceImpl.setSid(_sid);
-          }
+        while (responseLogin == null) {
+          print(1);
+          try {
+            if (_email.contains('') && _password.contains('')) {
+              final result = _authLocalDataSourceImpl.getLogin();
+              _email = result.$1;
+              _password = result.$2;
+            }
 
-          final test =
-              await sl<AuthRemoteDataSource>().fetch(response.requestOptions);
-          return handler.resolve(test);
-        } on DioException catch (e) {
-          print(e.error);
-          return handler.resolve(e.response ?? response);
+            responseLogin = await Dio().post(
+              '${ApiEndpoints.baseUrl}${ApiEndpoints.login}',
+              data: FormData.fromMap(
+                {
+                  'email': _email,
+                  'password': _password,
+                },
+              ),
+            );
+
+            if (responseLogin.data['status'] == 'ok') {
+              _sid = responseLogin.data['data']['sid'];
+              _authLocalDataSourceImpl.setSid(_sid);
+            }
+
+            final test =
+                await sl<AuthRemoteDataSource>().fetch(response.requestOptions);
+            return handler.resolve(test);
+          } on DioException catch (e) {
+            print(e.error);
+          }
         }
       }
     }

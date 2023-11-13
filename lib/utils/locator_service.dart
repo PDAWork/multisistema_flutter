@@ -10,6 +10,7 @@ import 'package:multisitema_flutter/app/future/auth/data/repository/auth_reposit
 import 'package:multisitema_flutter/app/future/auth/model/repository/auth_repository.dart';
 import 'package:multisitema_flutter/app/future/auth/model/usecase/auth_use_cases.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
+import 'package:multisitema_flutter/app/future/home/ui/state/cubit/home_cubit.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/data/data_source/remote_data_source.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/data/repository/splash_screen_repository_impl.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/ui/state/cubit/splash_screen_cubit.dart';
@@ -26,6 +27,7 @@ final sl = GetIt.instance;
 Future<void> initLocatorService() async {
   // Bloc/Cubit
 
+  sl.registerLazySingleton(() => HomeCubit(sl()));
   sl.registerFactory(() => AuthCubit(sl()));
   sl.registerFactory(() => SplashScreenCubit(
         authLocalDataSource: sl(),

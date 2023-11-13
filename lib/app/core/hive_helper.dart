@@ -5,4 +5,9 @@ abstract interface class HiveHelper {
   Future<void> init();
   Future<void> setUserObject(ObjectListDTO objectList);
   Future<void> setObjectMeters(SensorListDTO sensorList);
+
+  Future<ObjectListDTO> getUserObject();
+  Future<SensorListDTO> getUserObjectMeters();
+
+  // Future<void> addUserObjectMeters(SensorListDTO sensorList);
 }

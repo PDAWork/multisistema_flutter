@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multisitema_flutter/app/data/dto/object/object_dto.dart';
+import 'package:multisitema_flutter/app/future/home/ui/home.dart';
+import 'package:multisitema_flutter/app/future/home/ui/state/cubit/home_cubit.dart';
 
 class DropdownButtonApp extends StatefulWidget {
   const DropdownButtonApp({super.key, required this.items});
@@ -10,11 +14,17 @@ class DropdownButtonApp extends StatefulWidget {
 }
 
 class _DropdownButtonAppState extends State<DropdownButtonApp> {
-  String _selectitem = "";
+  ObjectDTO _selectitem = ObjectDTO.empty();
+  List<ObjectDTO> list = [];
+  @override
+  void didChangeDependencies() {
+    list = context.watch<HomeCubit>().listObeject;
+    _selectitem = list.isNotEmpty ? list.first : ObjectDTO.empty();
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {
-    _selectitem = widget.items.isEmpty ? " " : widget.items.first;
     super.initState();
   }
 
@@ -22,32 +32,38 @@ class _DropdownButtonAppState extends State<DropdownButtonApp> {
   Widget build(BuildContext context) {
     return DropdownButton(
       isExpanded: true,
-      isDense: true,
       underline: const SizedBox(),
       iconEnabledColor: Colors.white,
       value: _selectitem,
       selectedItemBuilder: (BuildContext context) {
-        return widget.items.map(
-          (String value) {
-            return Text(
-              value,
-              style: const TextStyle(color: Colors.white),
+        return list.map(
+          (item) {
+            return Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${item.house}, ${item.number}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  // overflow: TextOverflow.ellipsis,
+                  fontSize: 13,
+                ),
+              ),
             );
           },
         ).toList();
       },
-      items: widget.items
+      items: list
           .map((item) => DropdownMenuItem(
                 value: item,
                 child: Text(
-                  item,
-                  style: const TextStyle(color: Colors.black),
+                  '${item.house}, ${item.label}',
+                  style: const TextStyle(color: Colors.black, fontSize: 13),
                 ),
               ))
           .toList(),
-      onChanged: (String? value) {
+      onChanged: (value) {
         setState(() {
-          _selectitem = value ?? "";
+          _selectitem = value ?? ObjectDTO.empty();
         });
       },
     );

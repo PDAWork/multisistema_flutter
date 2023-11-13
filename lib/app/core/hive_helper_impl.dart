@@ -41,16 +41,39 @@ class HiveHelperImpl implements HiveHelper {
   }
 
   @override
-  Future<void> setObjectMeters(SensorListDTO sensorList) async {}
+  Future<void> setObjectMeters(SensorListDTO sensorList) async {
+    final boxSensor = await Hive.openBox<SensorListDTO>('sensor');
+    if (!boxSensor.values.isEmpty) {
+      await boxSensor.put('sensor', sensorList);
+    } else {
+      await boxSensor.clear();
+      await boxSensor.put('sensor', sensorList);
+    }
+  }
+
 
   @override
   Future<void> setUserObject(ObjectListDTO objectList) async {
-    var boxObject = await Hive.openBox<ObjectListDTO>('objects');
+    final boxObject = await Hive.openBox<ObjectListDTO>('objects');
     if (boxObject.values.isEmpty) {
       await boxObject.put('objects', objectList);
     } else {
       await boxObject.clear();
       await boxObject.put('objects', objectList);
     }
+  }
+
+  @override
+  Future<ObjectListDTO> getUserObject() async {
+    final boxObject = await Hive.openBox<ObjectListDTO>('objects');
+
+    return boxObject.get('objects')!;
+  }
+
+  @override
+  Future<SensorListDTO> getUserObjectMeters() async {
+    final boxObject = await Hive.openBox<SensorListDTO>('sensor');
+
+    return boxObject.get('sensor')!;
   }
 }
