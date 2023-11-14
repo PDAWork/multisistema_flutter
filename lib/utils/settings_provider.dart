@@ -8,7 +8,7 @@ class SettingsProvider {
     _hour = DateTime.now().hour;
     final localSource = sl<AuthLocalDataSource>();
     final userProfile = localSource.getUserProfile();
-    _isAuth = userProfile.email.contains('');
+    _isAuth = userProfile.email != "";
   }
 
   /// false не авторизован true авторизонва

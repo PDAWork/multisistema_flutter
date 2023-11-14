@@ -27,7 +27,7 @@ final sl = GetIt.instance;
 Future<void> initLocatorService() async {
   // Bloc/Cubit
 
-  sl.registerLazySingleton(() => HomeCubit(sl()));
+  sl.registerLazySingleton(() => HomeCubit(sl(), sl(), sl()));
   sl.registerFactory(() => AuthCubit(sl()));
   sl.registerFactory(() => SplashScreenCubit(
         authLocalDataSource: sl(),
@@ -78,6 +78,7 @@ Future<void> initLocatorService() async {
         sendTimeout: const Duration(seconds: 2),
         headers: {
           "Accept": "application/json",
+          'Connection': 'keep-alive',
         }))
       ..interceptors.addAll(
         [

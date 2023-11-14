@@ -22,3 +22,8 @@ final class ExeptionSplashScreen extends SplashScreenState {
   final String message;
   ExeptionSplashScreen(this.message) : super(firstName: '');
 }
+
+final class AuthExeptionSplashScreen extends SplashScreenState {
+  final String message;
+  AuthExeptionSplashScreen(this.message,{required super.firstName});
+}

@@ -12,12 +12,11 @@ class BodyResponse<T> {
   final String status;
   final List<ErrorsResponse> errors;
   final T data;
-  final List<T>? dataList;
   BodyResponse(
       {required this.status,
       required this.errors,
       required this.data,
-      this.dataList});
+  });
 
   factory BodyResponse.fromJson(Map<String, dynamic> json) {
     final data = json['data'];

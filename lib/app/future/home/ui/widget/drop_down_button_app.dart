@@ -4,9 +4,8 @@ import 'package:multisitema_flutter/app/data/dto/object/object_dto.dart';
 import 'package:multisitema_flutter/app/future/home/ui/state/cubit/home_cubit.dart';
 
 class DropdownButtonApp extends StatefulWidget {
-  const DropdownButtonApp({super.key, required this.items});
+  const DropdownButtonApp({super.key,});
 
-  final List<String> items;
 
   @override
   State<DropdownButtonApp> createState() => _DropdownButtonAppState();
@@ -17,8 +16,11 @@ class _DropdownButtonAppState extends State<DropdownButtonApp> {
   List<ObjectDTO> list = [];
   @override
   void didChangeDependencies() {
+    if(list.isEmpty){
+
     list = context.watch<HomeCubit>().listObeject;
     _selectitem = list.isNotEmpty ? list.first : ObjectDTO.empty();
+    }
     super.didChangeDependencies();
   }
 
@@ -61,9 +63,11 @@ class _DropdownButtonAppState extends State<DropdownButtonApp> {
               ))
           .toList(),
       onChanged: (value) {
+        context.read<HomeCubit>().changeObejt(value!.id.toString());
         setState(() {
           _selectitem = value ?? ObjectDTO.empty();
         });
+        
       },
     );
   }

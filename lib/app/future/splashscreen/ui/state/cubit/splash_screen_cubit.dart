@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/model/repository/splash_screen_repository.dart';
+import 'package:multisitema_flutter/utils/fauler.dart';
 
 part 'splash_screen_state.dart';
 
@@ -22,7 +23,12 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
     emit(LoadingSplashScreen(firstName: state.firstName));
     final result = await splashScreenRepository.loadData();
     result.fold(
-      (l) => emit(ExeptionSplashScreen(l.message)),
+      (l) {
+        if (l is AuthorizationFailure) {
+          emit(AuthExeptionSplashScreen(l.message, firstName: state.firstName));
+        }
+        emit(ExeptionSplashScreen(l.message));
+      },
       (r) => emit(SuccessSplashScreen()),
     );
   }
