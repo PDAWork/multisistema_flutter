@@ -18,21 +18,29 @@ class SplashScreenRepositoryImpl implements SplashScreenRepository {
 
   @override
   Future<Either<Failure, void>> loadData() async {
-    final sid = authLocalDataSource.getSid();
-    try {
-      final userObject = await remoteDataSource.userObject(sid);
-      final objectMeters = await remoteDataSource.objectMetersDTO(
-        sid,
-        userObject.data.objects.first.id.toString(),
-      );
-      await Future.wait({
-        hiveHelper.setObjectMeters(objectMeters.data),
-        hiveHelper.setUserObject(userObject.data)
-      });
+    bool loadData = true;
+    while (loadData) {
+      final sid = authLocalDataSource.getSid();
+      try {
+        final userObject = await remoteDataSource.userObject(sid);
+        final objectMeters = await remoteDataSource.objectMetersDTO(
+          sid,
+          userObject.data.objects.first.id.toString(),
+        );
+        await Future.wait({
+          hiveHelper.setObjectMeters(objectMeters.data),
+          hiveHelper.setUserObject(userObject.data)
+        });
 
-      return right(() {});
-    } on ServerExeption catch (e) {
-      return left(ServerFailure(message: e.message));
+        loadData = false;
+        return right(() {});
+      } on AuthorizationExeption catch (e) {
+        return left(AuthorizationFailure(message: e.message));
+      } on ServerExeption catch (e) {
+        loadData = false;
+        return left(ServerFailure(message: e.message));
+      }
     }
+    return left(ServerFailure());
   }
 }

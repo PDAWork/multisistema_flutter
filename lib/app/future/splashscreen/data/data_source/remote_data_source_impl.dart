@@ -29,9 +29,7 @@ class RemotedDataSourceImpl implements RemoteDataSource {
       );
       final data = BodyResponse<SensorListDTO>.fromJson(response.data);
 
-      if(data.status.contains('bad')){
-        throw ServerExeption(message: 'Техническая ошибка');
-      }
+      errorSid(data);
       return data;
     } on DioException {
       throw ServerExeption(message: "Технические работы");
@@ -45,12 +43,17 @@ class RemotedDataSourceImpl implements RemoteDataSource {
         '${ApiEndpoints.userObjects}?sid=$sid',
       );
       final data = BodyResponse<ObjectListDTO>.fromJson(response.data);
-      if(data.status.contains('bad')){
-        throw ServerExeption(message: 'Техническая ошибка');
-      }
+      errorSid(data);
       return data;
     } on DioException {
       throw ServerExeption(message: "Технические работы");
+    }
+  }
+
+  void errorSid(BodyResponse data) {
+    if (data.status.contains('bad')) {
+      if (data.errors.first.msg.contains('Неверный sid'))
+        throw AuthorizationExeption(message: 'Неверный sid');
     }
   }
 }
