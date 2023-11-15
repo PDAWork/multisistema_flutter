@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_login_dto.dart';
 import 'package:multisitema_flutter/app/future/auth/model/repository/auth_repository.dart';
-import 'package:multisitema_flutter/utils/fauler.dart';
+import 'package:multisitema_flutter/common/fauler.dart';
 
 class AuthUseCases {
   final AuthRepository authRepository;

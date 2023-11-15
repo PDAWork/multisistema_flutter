@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/utils/settings_provider.dart';
+import 'package:multisitema_flutter/common/settings_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../utils/nav.dart';
+import '../../../../common/nav.dart';
 import 'pages/page_one.dart';
 
 class PageViewProvider with ChangeNotifier {

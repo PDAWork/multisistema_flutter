@@ -1,21 +1,20 @@
-import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
-
 import 'errors_response.dart';
 import 'object/object_dto.dart';
 import 'object/object_list_dto.dart';
 import 'sensor/sensor_list_dto.dart';
 import 'user.dart';
-import '../../future/auth/data/dto/user_login_dto.dart';
+import 'user/user_login_dto.dart';
+import 'user/user_profile_dto.dart';
 
 // Fulutter Securet Storage
 class BodyResponse<T> {
   final String status;
   final List<ErrorsResponse> errors;
   final T data;
-  BodyResponse(
-      {required this.status,
-      required this.errors,
-      required this.data,
+  BodyResponse({
+    required this.status,
+    required this.errors,
+    required this.data,
   });
 
   factory BodyResponse.fromJson(Map<String, dynamic> json) {

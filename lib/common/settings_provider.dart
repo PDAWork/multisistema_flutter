@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
-import 'package:multisitema_flutter/utils/locator_service.dart';
-import 'package:multisitema_flutter/utils/theme_app.dart';
+import 'package:multisitema_flutter/common/locator_service.dart';
+import 'package:multisitema_flutter/common/theme_app.dart';
 
 class SettingsProvider {
   SettingsProvider() {

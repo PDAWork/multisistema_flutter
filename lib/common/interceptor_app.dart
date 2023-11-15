@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
-import 'package:multisitema_flutter/utils/api_entrypoints.dart';
-import 'package:multisitema_flutter/utils/locator_service.dart';
+import 'package:multisitema_flutter/common/api_entrypoints.dart';
+import 'package:multisitema_flutter/common/locator_service.dart';
+import 'package:multisitema_flutter/model/dto/body_response.dart';
 
 class InterceptorApp extends QueuedInterceptor {
   // final AuthRemoteDataSourceImpl _authRemoteDataSourceImpl;

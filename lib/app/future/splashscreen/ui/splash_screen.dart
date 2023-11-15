@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/ui/state/cubit/splash_screen_cubit.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../utils/nav.dart';
-import '../../../../utils/settings_provider.dart';
+import '../../../../common/nav.dart';
+import '../../../../common/settings_provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

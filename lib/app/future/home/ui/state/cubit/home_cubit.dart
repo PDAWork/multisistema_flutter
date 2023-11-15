@@ -5,7 +5,7 @@ import 'package:multisitema_flutter/app/data/dto/sensor/sensor_dto.dart';
 import 'package:multisitema_flutter/app/data/dto/sensor/sensor_list_dto.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/data/data_source/remote_data_source.dart';
-import 'package:multisitema_flutter/utils/fauler.dart';
+import 'package:multisitema_flutter/common/fauler.dart';
 
 import '../../../../../data/dto/object/object_dto.dart';
 

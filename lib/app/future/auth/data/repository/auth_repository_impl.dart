@@ -4,7 +4,7 @@ import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remot
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_login_dto.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
 
-import 'package:multisitema_flutter/utils/fauler.dart';
+import 'package:multisitema_flutter/common/fauler.dart';
 
 import '../../model/repository/auth_repository.dart';
 

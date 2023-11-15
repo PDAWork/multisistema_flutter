@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/model/repository/splash_screen_repository.dart';
-import 'package:multisitema_flutter/utils/fauler.dart';
+import 'package:multisitema_flutter/common/fauler.dart';
 
 part 'splash_screen_state.dart';
 

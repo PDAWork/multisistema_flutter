@@ -1,5 +1,5 @@
-import '../data/dto/object/object_list_dto.dart';
-import '../data/dto/sensor/sensor_list_dto.dart';
+import 'package:multisitema_flutter/model/dto/object/object_list_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/sensor_list_dto.dart';
 
 abstract interface class HiveHelper {
   Future<void> init();

@@ -1,29 +1,30 @@
-import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
+import 'package:multisitema_flutter/common/key_shared_preferences.dart';
+import 'package:multisitema_flutter/model/dto/user/user_profile_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../../common/key_shared_preferences.dart';
-
-abstract interface class AuthLocalDataSource {
-  void setSid(String sid);
-
+abstract interface class LocalDataSource {
+  void setSid(String id);
   String getSid();
 
-  void setUserProfile(UserProfileDTO userProfileDTO);
+  void setUserProfile(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String phone,
+  );
 
   UserProfileDTO getUserProfile();
 
-  void setLogin(String email, String password);
-
-  (String, String) getLogin();
+  (String email, String password) getLogin();
 
   bool getAuthUser();
 }
 
-class AuthLocalDataSourceImpl implements AuthLocalDataSource {
+class LocalDataSourceImpl implements LocalDataSource {
   final SharedPreferences _preferences;
 
-  AuthLocalDataSourceImpl(this._preferences);
-
+  LocalDataSourceImpl(this._preferences);
   @override
   String getSid() {
     return _preferences.getString(KeySharedPreferences.keySid) ?? '';
@@ -51,16 +52,17 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  void setUserProfile(UserProfileDTO userProfileDTO) {
+  void setUserProfile(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String phone,
+  ) {
     _preferences
-      ..setString(KeySharedPreferences.keyFirstName, userProfileDTO.firstName)
-      ..setString(KeySharedPreferences.keyLastName, userProfileDTO.lastName)
-      ..setString(KeySharedPreferences.keyPhone, userProfileDTO.phone);
-  }
-
-  @override
-  void setLogin(String email, String password) {
-    _preferences
+      ..setString(KeySharedPreferences.keyFirstName, firstName)
+      ..setString(KeySharedPreferences.keyLastName, lastName)
+      ..setString(KeySharedPreferences.keyPhone, phone)
       ..setString(KeySharedPreferences.keyEmail, email)
       ..setString(KeySharedPreferences.keyPassword, password);
   }

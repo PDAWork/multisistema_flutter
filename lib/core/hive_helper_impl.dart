@@ -1,13 +1,12 @@
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../data/dto/object/object_dto.dart';
-import '../data/dto/object/object_list_dto.dart';
-import '../data/dto/object/tariff_dto.dart';
-import '../data/dto/sensor/meters/meter_dto.dart';
-import '../data/dto/sensor/meters/state_dto.dart';
-import '../data/dto/sensor/meters/type_dto.dart';
-import '../data/dto/sensor/sensor_dto.dart';
-import '../data/dto/sensor/sensor_list_dto.dart';
+import 'package:multisitema_flutter/model/dto/object/object_dto.dart';
+import 'package:multisitema_flutter/model/dto/object/object_list_dto.dart';
+import 'package:multisitema_flutter/model/dto/object/tariff_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/meters/meter_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/meters/state_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/meters/type_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/sensor_dto.dart';
+import 'package:multisitema_flutter/model/dto/sensor/sensor_list_dto.dart';
 
 import 'hive_helper.dart';
 
@@ -50,7 +49,6 @@ class HiveHelperImpl implements HiveHelper {
       await boxSensor.put('sensor', sensorList);
     }
   }
-
 
   @override
   Future<void> setUserObject(ObjectListDTO objectList) async {

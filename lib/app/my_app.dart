@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/utils/nav.dart';
-import 'package:multisitema_flutter/utils/settings_provider.dart';
-import 'package:multisitema_flutter/utils/theme_app.dart';
+import 'package:multisitema_flutter/common/nav.dart';
+import 'package:multisitema_flutter/common/settings_provider.dart';
+import 'package:multisitema_flutter/common/theme_app.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {

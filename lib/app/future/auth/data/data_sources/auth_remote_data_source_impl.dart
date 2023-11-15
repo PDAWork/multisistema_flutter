@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_login_dto.dart';
 import 'package:multisitema_flutter/app/future/auth/data/dto/user_profile_dto.dart';
-import 'package:multisitema_flutter/utils/api_entrypoints.dart';
-import 'package:multisitema_flutter/utils/fauler.dart';
+import 'package:multisitema_flutter/common/api_entrypoints.dart';
+import 'package:multisitema_flutter/common/fauler.dart';
 
 import 'auth_remote_data_source.dart';
 

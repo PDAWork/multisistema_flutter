@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/app/future/auth/ui/state/auth_cubit.dart';
-import 'package:multisitema_flutter/utils/settings_provider.dart';
-import 'package:multisitema_flutter/utils/theme_app.dart';
-import '../../../../../utils/nav.dart';
+import 'package:multisitema_flutter/common/settings_provider.dart';
+import 'package:multisitema_flutter/common/theme_app.dart';
+import '../../../../common/nav.dart';
 import 'widget/custom_icon_auth.dart';
 
 class SignIn extends StatelessWidget {

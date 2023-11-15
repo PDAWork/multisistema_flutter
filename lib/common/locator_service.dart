@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:multisitema_flutter/app/core/hive_helper.dart';
-import 'package:multisitema_flutter/app/core/hive_helper_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source_impl.dart';
@@ -14,8 +12,10 @@ import 'package:multisitema_flutter/app/future/home/ui/state/cubit/home_cubit.da
 import 'package:multisitema_flutter/app/future/splashscreen/data/data_source/remote_data_source.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/data/repository/splash_screen_repository_impl.dart';
 import 'package:multisitema_flutter/app/future/splashscreen/ui/state/cubit/splash_screen_cubit.dart';
-import 'package:multisitema_flutter/utils/api_entrypoints.dart';
-import 'package:multisitema_flutter/utils/interceptor_app.dart';
+import 'package:multisitema_flutter/common/api_entrypoints.dart';
+import 'package:multisitema_flutter/common/interceptor_app.dart';
+import 'package:multisitema_flutter/core/hive_helper.dart';
+import 'package:multisitema_flutter/core/hive_helper_impl.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
