@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:multisitema_flutter/app/future/auth/model/usecase/auth_use_cases.dart';
+import 'package:multisitema_flutter/utils/fauler.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
@@ -20,7 +21,11 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await authUseCases.login(email.text, password.text);
 
     result.fold(
-      (l) => emit(AuthError(message: l.message)),
+      (l) {
+        if (l is AuthorizationFailure) {
+          emit(AuthError(message: l.message));
+        }
+      },
       (r) => emit(AuthSucess()),
     );
   }

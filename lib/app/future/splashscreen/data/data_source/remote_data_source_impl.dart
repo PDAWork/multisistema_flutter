@@ -22,10 +22,14 @@ class RemotedDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<BodyResponse<SensorListDTO>> objectMetersDTO(
-      String sid, String idObject) async {
+    String sid,
+    String idObject, 
+    String date,
+  ) async {
+  
     try {
       final response = await _dio.get(
-        '${ApiEndpoints.objectMeters}?sid=$sid&id=$idObject',
+        '${ApiEndpoints.objectMeters}?sid=$sid&id=$idObject&date=$date',
       );
       final data = BodyResponse<SensorListDTO>.fromJson(response.data);
 

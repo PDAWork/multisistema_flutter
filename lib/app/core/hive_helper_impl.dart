@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../data/dto/object/object_dto.dart';
 import '../data/dto/object/object_list_dto.dart';
@@ -41,16 +42,12 @@ class HiveHelperImpl implements HiveHelper {
   }
 
   @override
-  Future<void> setObjectMeters(SensorListDTO sensorList) async {
+  Future<void> setObjectMeters(
+      SensorListDTO sensorList, String idObject, DateTime dateTime) async {
     final boxSensor = await Hive.openBox<SensorListDTO>('sensor');
-    if (!boxSensor.values.isEmpty) {
-      await boxSensor.put('sensor', sensorList);
-    } else {
-      await boxSensor.clear();
-      await boxSensor.put('sensor', sensorList);
-    }
+    final date = DateFormat('dd.MM.yyyy').format(dateTime);
+    await boxSensor.put('$idObject $date', sensorList);
   }
-
 
   @override
   Future<void> setUserObject(ObjectListDTO objectList) async {
@@ -71,9 +68,32 @@ class HiveHelperImpl implements HiveHelper {
   }
 
   @override
-  Future<SensorListDTO> getUserObjectMeters() async {
-    final boxObject = await Hive.openBox<SensorListDTO>('sensor');
+  Future<SensorListDTO> getUserObjectMeters(String idObject) async {
+    final boxSensor = await Hive.openBox<SensorListDTO>('sensor');
 
-    return boxObject.get('sensor')!;
+    return boxSensor.get(idObject) ?? SensorListDTO(sensorList: []);
+  }
+
+  @override
+  Future<SensorListDTO> updateObjectMeters(
+    SensorListDTO sensorList,
+    String idObject,
+    String date,
+  ) async {
+    final key = '$idObject $date';
+    final boxSensor = await Hive.openBox<SensorListDTO>('sensor');
+    if (boxSensor.containsKey(key)) {
+      await boxSensor.delete(key);
+      await boxSensor.put(key, sensorList);
+    }
+    return boxSensor.get(key)!;
+  }
+
+  @override
+  Future<void> clearHive() async {
+    final boxObject = await Hive.openBox<SensorListDTO>('sensor');
+    final boxSensor = await Hive.openBox<SensorListDTO>('sensor');
+    await Future.wait([boxObject.clear(), boxSensor.clear()]);
+    await Future.wait([boxObject.close(), boxSensor.close()]);
   }
 }

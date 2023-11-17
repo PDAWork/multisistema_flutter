@@ -27,7 +27,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
         if (l is AuthorizationFailure) {
           emit(AuthExeptionSplashScreen(l.message, firstName: state.firstName));
         }
-        emit(ExeptionSplashScreen(l.message));
+        emit(AuthExeptionSplashScreen(l.message, firstName: state.firstName));
       },
       (r) => emit(SuccessSplashScreen()),
     );

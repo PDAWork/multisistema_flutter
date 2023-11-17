@@ -27,13 +27,15 @@ class MeterDTOAdapter extends TypeAdapter<MeterDTO> {
       state: fields[7] as StateDTO,
       unit: fields[8] as String,
       vals: (fields[9] as List).cast<String>(),
+      activeText: fields[10] as String?,
+      passiveText: fields[11] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, MeterDTO obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.meterId)
       ..writeByte(1)
@@ -53,7 +55,11 @@ class MeterDTOAdapter extends TypeAdapter<MeterDTO> {
       ..writeByte(8)
       ..write(obj.unit)
       ..writeByte(9)
-      ..write(obj.vals);
+      ..write(obj.vals)
+      ..writeByte(10)
+      ..write(obj.activeText)
+      ..writeByte(11)
+      ..write(obj.passiveText);
   }
 
   @override

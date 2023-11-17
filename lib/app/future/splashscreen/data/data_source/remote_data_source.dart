@@ -9,6 +9,7 @@ abstract interface class RemoteDataSource {
   Future<BodyResponse<SensorListDTO>> objectMetersDTO(
     String sid,
     String idObject,
+    String date
   );
   Future<dynamic> fetch(RequestOptions options);
 }

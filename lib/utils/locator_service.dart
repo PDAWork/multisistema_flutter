@@ -1,4 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:multisitema_flutter/app/core/hive_helper.dart';
@@ -70,12 +73,21 @@ Future<void> initLocatorService() async {
   final preferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => preferences);
 
-  sl.registerLazySingleton(
-    () => Dio(BaseOptions(
+  final HttpClientAdapter httpClientAdapter = IOHttpClientAdapter(
+    onHttpClientCreate: (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    },
+  );
+
+  sl.registerLazySingleton(() {
+    // Отменить PrettyDioLogger в release version kDebug
+    return Dio(BaseOptions(
         baseUrl: ApiEndpoints.baseUrl,
-        connectTimeout: Duration(seconds: 10), // миллисекунды
-        receiveTimeout: const Duration(milliseconds: 3000), // миллисекунды
-        sendTimeout: const Duration(seconds: 2),
+        connectTimeout: const Duration(seconds: 20), // миллисекунды
+        receiveTimeout: const Duration(seconds: 60), // миллисекунды
+        sendTimeout: const Duration(seconds: 20),
         headers: {
           "Accept": "application/json",
           'Connection': 'keep-alive',
@@ -90,10 +102,9 @@ Future<void> initLocatorService() async {
             compact: true,
             maxWidth: 90,
           ),
+          InterceptorApp(authLocalDataSourceImpl: sl()),
         ],
       )
-      ..interceptors.add(
-        InterceptorApp(authLocalDataSourceImpl: sl()),
-      ),
-  );
+      ..httpClientAdapter = httpClientAdapter;
+  });
 }

@@ -3,7 +3,6 @@ import 'meters/meter_dto.dart';
 
 part 'sensor_dto.g.dart';
 
-
 @HiveType(typeId: 3)
 class SensorDTO {
   @HiveField(0)
@@ -55,7 +54,7 @@ class SensorDTO {
   @HiveField(23)
   final bool emptyInputs;
   @HiveField(24)
-  final bool nbiot;
+  final dynamic nbiot;
   @HiveField(25)
   final List<MeterDTO> metersList;
 
@@ -90,31 +89,33 @@ class SensorDTO {
 
   factory SensorDTO.fromJson(Map<String, dynamic> json) {
     return SensorDTO(
-      sn: json['sn'],
-      name: json['name'],
-      model: json['model'],
-      active: json['active'],
-      ssid: json['ssid'],
-      firmware: json['firmware'],
-      bat: json['bat'],
-      localIp: json['local_ip'],
-      checkHours: json['check_hours'],
-      checkPeriodDisplay: json['check_period_display'],
-      lastConnection: DateTime.parse(json['last_connection']),
+      sn: json['sn'] ?? '',
+      name: json['name'] ?? '',
+      model: json['model'] ?? '',
+      active: json['active'] ?? false,
+      ssid: json['ssid'] ?? '',
+      firmware: json['firmware'] ?? '',
+      bat: json['bat'] ?? 0,
+      localIp: json['local_ip'] ?? '',
+      checkHours: json['check_hours'] ?? 0,
+      checkPeriodDisplay: json['check_period_display'] ?? '',
+      lastConnection: DateTime.parse(
+        json['last_connection'] ?? DateTime.now().toString(),
+      ),
       lastConnectionWarning: json['last_connection_warning'],
       licChannels: json['lic_channels'],
-      requests: json['requests'],
-      rssi: json['rssi'],
+      requests: json['requests'] ?? 0,
+      rssi: json['rssi'] ??'',
       log: json['log'],
-      scan: json['scan'],
-      vol: json['vol'],
-      send: json['send'],
-      readoutDt: DateTime.parse(json['readout_dt']),
-      requestDt: DateTime.parse(json['request_dt']),
-      capState: json['cap_state'],
-      powerSupply: json['power_supply'],
-      emptyInputs: json['empty_inputs'],
-      nbiot: json['nbiot'],
+      scan: json['scan'] ??0,
+      vol: json['vol'] ?? 0 ,
+      send: json['send'] ?? 0,
+      readoutDt: DateTime.parse(json['readout_dt'] ?? DateTime.now().toString()),
+      requestDt: DateTime.parse(json['request_dt'] ?? DateTime.now().toString()),
+      capState: json['cap_state'] ?? false,
+      powerSupply: json['power_supply'] ?? false,
+      emptyInputs: json['empty_inputs']?? false,
+      nbiot: json['nbiot'] ,
       metersList:
           (json['meters'] as List).map((e) => MeterDTO.fromJson(e)).toList(),
     );

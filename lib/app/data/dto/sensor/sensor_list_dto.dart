@@ -13,8 +13,11 @@ class SensorListDTO {
 
   factory SensorListDTO.fromJson(Map<String, dynamic> json) {
     return SensorListDTO(
-      sensorList:
-          (json['sensors'] as List).map((e) => SensorDTO.fromJson(e)).toList(),
+      sensorList: json['sensors'] == null
+          ? []
+          : (json['sensors'] as List)
+              .map((e) => SensorDTO.fromJson(e))
+              .toList(),
     );
   }
 }

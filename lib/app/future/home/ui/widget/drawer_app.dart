@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multisitema_flutter/app/core/hive_helper.dart';
+import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../../utils/locator_service.dart';
+import '../../../../../utils/nav.dart';
+
+class DrawerAppController with ChangeNotifier {
+  final AuthLocalDataSource authLocalDataSource;
+
+  DrawerAppController({required this.authLocalDataSource});
+
+  void init() {
+    final userProfile = authLocalDataSource.getUserProfile();
+    _emailPerson = userProfile.email;
+    _userNamePerson = userProfile.firstName;
+  }
+
+  String _emailPerson = '';
+  String get emailPerson => _emailPerson;
+  String _userNamePerson = '';
+  String get userNamePerson => _userNamePerson;
+}
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
-
-  // TODO email
-  final String emailPerson = "pahomovdaniil02@yandex.ru";
-  // TODO userName
-  final String userNamePerson = "Пахомов Даниил";
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +44,9 @@ class DrawerApp extends StatelessWidget {
               size: 60,
             ),
             currentAccountPictureSize: const Size.square(1),
-            accountEmail: Text(emailPerson),
-            accountName: Text(
-              userNamePerson,
-            ),
+            accountEmail: Text(context.read<DrawerAppController>().emailPerson),
+            accountName:
+                Text(context.read<DrawerAppController>().userNamePerson),
           ),
           ListTile(
             onTap: () {},
@@ -77,9 +95,12 @@ class DrawerApp extends StatelessWidget {
             title: const Text('Инструкция'),
           ),
           ListTile(
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Navigator.defaultRouteName, (route) => false);
+            onTap: () async {
+              await sl<SharedPreferences>().clear();
+              sl<HiveHelper>().clearHive().then((value) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Nav.signIn, (route) => false);
+              });
             },
             leading: const Icon(Icons.login_outlined),
             title: const Text('Инструкция'),

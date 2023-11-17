@@ -41,7 +41,7 @@ class SensorDTOAdapter extends TypeAdapter<SensorDTO> {
       capState: fields[21] as bool,
       powerSupply: fields[22] as bool,
       emptyInputs: fields[23] as bool,
-      nbiot: fields[24] as bool,
+      nbiot: fields[24] as dynamic,
       metersList: (fields[25] as List).cast<MeterDTO>(),
     );
   }

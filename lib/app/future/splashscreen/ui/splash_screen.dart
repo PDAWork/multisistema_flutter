@@ -19,6 +19,9 @@ class SplashScreen extends StatelessWidget {
             Navigator.pushNamedAndRemoveUntil(
                 context, Nav.home, (route) => false);
           }
+          if (state is AuthExeptionSplashScreen) {
+            context.read<SplashScreenCubit>().init();
+          }
           if (state is ExeptionSplashScreen) {
             context
                 .read<SettingsProvider>()
