@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: ctx.read<SettingsProvider>().isAuthGet
-              ? Nav.splashScreen
-              : Nav.signIn,
+          // initialRoute: ctx.read<SettingsProvider>().isAuthGet
+          //     ? Nav.splashScreen
+          //     : Nav.signIn,
+          initialRoute: Nav.signIn,
           onGenerateRoute: Nav.onGenerateRoute,
         );
       },

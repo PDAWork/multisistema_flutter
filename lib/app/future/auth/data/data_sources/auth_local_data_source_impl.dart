@@ -14,7 +14,7 @@ abstract interface class AuthLocalDataSource {
 
   void setLogin(String email, String password);
 
-  (String, String) getLogin();
+  (String email, String password) getLogin();
 
   bool getAuthUser();
 }
@@ -66,7 +66,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  (String, String) getLogin() {
+  (String email, String password) getLogin() {
     return (
       _preferences.getString(KeySharedPreferences.keyEmail) ?? "",
       _preferences.getString(KeySharedPreferences.keyPassword) ?? ""
