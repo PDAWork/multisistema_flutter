@@ -49,25 +49,27 @@ class DrawerApp extends StatelessWidget {
                 Text(context.read<DrawerAppController>().userNamePerson),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, Nav.pay);
+            },
             leading: const Icon(Icons.payment),
             title: const Text('Баланс 110 руб'),
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.video_collection),
-            title: const Text('Инструкция'),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.share),
-            title: const Text('Пригласить друзей'),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.star_border),
-            title: const Text('Поставить оценку'),
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.video_collection),
+          //   title: const Text('Инструкция'),
+          // ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.share),
+          //   title: const Text('Пригласить друзей'),
+          // ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.star_border),
+          //   title: const Text('Поставить оценку'),
+          // ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.info_outline),
@@ -84,16 +86,16 @@ class DrawerApp extends StatelessWidget {
               textAlign: TextAlign.start,
             ),
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.build),
-            title: const Text('Настройки'),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.send),
-            title: const Text('Поддержка'),
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.build),
+          //   title: const Text('Настройки'),
+          // ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.send),
+          //   title: const Text('Поддержка'),
+          // ),
           ListTile(
             onTap: () async {
               await sl<SharedPreferences>().clear();

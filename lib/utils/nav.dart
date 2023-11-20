@@ -13,6 +13,7 @@ import '../app/future/auth/ui/sign_in.dart';
 import '../app/future/home/ui/home.dart';
 import '../app/future/home/ui/state/cubit/drop_down_button_app_cubit.dart';
 import '../app/future/information/ui/information.dart';
+import '../app/future/pay/presentation/pay.dart';
 import 'locator_service.dart';
 
 class Nav {
@@ -20,6 +21,7 @@ class Nav {
   static const String info = "/info";
   static const String splashScreen = "/splash_creen";
   static const String home = "/home";
+  static const String pay = "/pay";
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     return switch (settings.name) {
@@ -53,6 +55,7 @@ class Nav {
             child: const Information(),
           ),
         ),
+      pay => MaterialPageRoute(builder: (_) => Pay()),
       splashScreen => MaterialPageRoute(
           builder: (ctx) => BlocProvider(
             create: (context) => sl<SplashScreenCubit>()..init(),
