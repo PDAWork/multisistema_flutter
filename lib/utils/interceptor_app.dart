@@ -5,6 +5,7 @@ import 'package:dio/io.dart';
 import 'package:multisitema_flutter/app/data/dto/body_response.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/future/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:multisitema_flutter/app/future/splashscreen/ui/state/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/utils/api_entrypoints.dart';
 import 'package:multisitema_flutter/utils/locator_service.dart';
 
@@ -53,9 +54,11 @@ class InterceptorApp extends QueuedInterceptor {
         }
 
         final test = await sl<AuthRemoteDataSource>().fetch(err.requestOptions);
+        sl<SplashScreenCubit>().refresState();
         return handler.resolve(test);
       } on DioException catch (e) {
         print(e.error);
+        Future.delayed(Duration(seconds: 10));
       }
     }
 
@@ -121,9 +124,12 @@ class InterceptorApp extends QueuedInterceptor {
 
             final test =
                 await sl<AuthRemoteDataSource>().fetch(response.requestOptions);
+            sl<SplashScreenCubit>().refresState();
+
             return handler.resolve(test);
           } on DioException catch (e) {
             print(e.error);
+            Future.delayed(Duration(seconds: 10));
           }
         }
       }

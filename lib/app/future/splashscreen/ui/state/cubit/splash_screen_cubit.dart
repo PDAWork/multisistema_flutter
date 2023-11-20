@@ -16,6 +16,10 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
   final SplashScreenRepository splashScreenRepository;
   final AuthLocalDataSource authLocalDataSource;
 
+  void refresState(){
+    emit(SuccessSplashScreen());
+  }
+
   void init() async {
     final userProfile = authLocalDataSource.getUserProfile();
     emit(SplashScreenInitial(firstName: userProfile.firstName));
