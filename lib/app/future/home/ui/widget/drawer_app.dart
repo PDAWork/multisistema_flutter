@@ -61,17 +61,17 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.share),
-            title: const Text('Инструкция'),
+            title: const Text('Пригласить друзей'),
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.star_border),
-            title: const Text('Инструкция'),
+            title: const Text('Поставить оценку'),
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.info_outline),
-            title: const Text('Инструкция'),
+            title: const Text('О приложении'),
           ),
           Divider(
             color: Colors.grey.shade400,
@@ -87,12 +87,12 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.build),
-            title: const Text('Инструкция'),
+            title: const Text('Настройки'),
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.send),
-            title: const Text('Инструкция'),
+            title: const Text('Поддержка'),
           ),
           ListTile(
             onTap: () async {
@@ -103,7 +103,7 @@ class DrawerApp extends StatelessWidget {
               });
             },
             leading: const Icon(Icons.login_outlined),
-            title: const Text('Инструкция'),
+            title: const Text('Выход'),
           ),
         ],
       ),
