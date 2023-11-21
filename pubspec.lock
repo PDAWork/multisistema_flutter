@@ -254,6 +254,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.1.3"
+  flutter_deep_linking:
+    dependency: "direct main"
+    description:
+      name: flutter_deep_linking
+      sha256: fd6e78c903d8927673cdbc093bd2a3edfef95f29b199b58ec844a2566cfb4186
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -296,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: c247a4f76071c3b97bb5ae8912968870d5565644801c5e09f3bc961b4d874895
+      url: "https://pub.dev"
+    source: hosted
+    version: "12.1.1"
   graphs:
     dependency: transitive
     description:
@@ -725,6 +741,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  uni_links:
+    dependency: "direct main"
+    description:
+      name: uni_links
+      sha256: "051098acfc9e26a9fde03b487bef5d3d228ca8f67693480c6f33fd4fbb8e2b6e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.1"
+  uni_links_platform_interface:
+    dependency: transitive
+    description:
+      name: uni_links_platform_interface
+      sha256: "929cf1a71b59e3b7c2d8a2605a9cf7e0b125b13bc858e55083d88c62722d4507"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  uni_links_web:
+    dependency: transitive
+    description:
+      name: uni_links_web
+      sha256: "7539db908e25f67de2438e33cc1020b30ab94e66720b5677ba6763b25f6394df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   url_launcher:
     dependency: "direct main"
     description:
