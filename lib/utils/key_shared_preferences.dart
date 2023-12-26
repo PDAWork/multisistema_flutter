@@ -1,6 +1,6 @@
 abstract final class KeySharedPreferences {
-  static const String keySid = 'SID';
-  static const String keyEmail = 'EMAIL';
+  static const String keyRefreshToken = 'REFRESHTOKEN';
+  static const String keyLogin = 'LOGIN';
   static const String keyPassword = "PASSWORD";
   static const String keyFirstName = 'FIRSTNAME';
   static const String keyLastName = 'LASTNAME';

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/utils/nav.dart';
-import 'package:multisitema_flutter/utils/settings_provider.dart';
-import 'package:multisitema_flutter/utils/theme_app.dart';
+import 'package:multisitema_flutter/app/service/AuthProvider.dart';
+import 'package:multisitema_flutter/app/style/app_theme.dart';
 import 'package:provider/provider.dart';
+
+import 'routes/app_router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,30 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (context) => SettingsProvider(),
-      builder: (ctx, child) {
-        return MaterialApp(
-          theme: ThemeData(
-            colorScheme:
-                const ColorScheme.light(primary: ThemeApp.primaryColor),
-            primaryColor: ThemeApp.primaryColor,
-            appBarTheme: const AppBarTheme(
-              backgroundColor: ThemeApp.primaryColor,
-            ),
-            textButtonTheme: const TextButtonThemeData(
-              style: ButtonStyle(
-                foregroundColor:
-                    MaterialStatePropertyAll(ThemeApp.primaryColor),
-              ),
-            ),
-          ),
-          // initialRoute: ctx.read<SettingsProvider>().isAuthGet
-          //     ? Nav.splashScreen
-          //     : Nav.signIn,
-          initialRoute: Nav.signIn,
-          onGenerateRoute: Nav.onGenerateRoute,
-        );
-      },
+      create: (context) => AuthProvider(),
+      child: MaterialApp.router(
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        routerDelegate: AppRouter.router.routerDelegate,
+        theme: appTheme,
+      ),
     );
   }
 }
