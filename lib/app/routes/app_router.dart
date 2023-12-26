@@ -21,6 +21,14 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
+        redirect: (context, state) {
+          final isLoggedIn = !context.read<AuthProvider>().isLoginGet;
+          final isLoginRoute = state.matchedLocation == Pages.singIn.screenPath;
+          if (isLoggedIn && isLoginRoute) {
+            return Pages.info.screenPath;
+          }
+          return state.matchedLocation;
+        },
         path: Pages.singIn.screenPath,
         name: Pages.singIn.screenName,
         builder: (context, state) => BlocProvider(
@@ -42,17 +50,6 @@ class AppRouter {
         builder: (context, state) => const SplashScreen(),
       )
     ],
-    redirect: (context, state) {
-      final isLoggedIn = !context.read<AuthProvider>().isLoginGet;
-      final isLoginRoute = state.matchedLocation == Pages.singIn.screenPath;
-      print(state.matchedLocation);
-      if (!isLoggedIn && !isLoginRoute) {
-        return Pages.singIn.screenPath;
-      } else if (isLoggedIn && isLoginRoute) {
-        return Pages.info.screenPath;
-      }
-      return state.matchedLocation;
-    },
   );
 
   // static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
