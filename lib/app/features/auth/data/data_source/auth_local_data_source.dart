@@ -36,6 +36,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
         KeySharedPreferences.keyRefreshToken,
         userDto.refreshToken,
       ),
+      _preferences.setString(
+        KeySharedPreferences.keyAccessToken,
+        userDto.accessToken,
+      ),
     });
   }
 
