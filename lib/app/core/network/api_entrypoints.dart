@@ -8,6 +8,7 @@ abstract final class ApiEndpoints {
           : "https://localhost:3000/api/";
 
   static const String signIn = "auth/signIn";
+  static const String refreshToken = "auth/refresh";
   static const String userProfile = "user/profile";
   static const String userObjects = "user/objects";
   static const String objectGet = "object/get";

@@ -1,9 +1,13 @@
+import 'package:multisitema_flutter/app/features/auth/data/model/token_dto.dart';
 import 'package:multisitema_flutter/app/features/auth/data/model/user_dto.dart';
 import 'package:multisitema_flutter/utils/key_shared_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract interface class AuthLocalDataSource {
   Future<void> setUserProfile(UserDto userDto);
+  String getRefreshToken();
+  String getAccessToken();
+  Future<void> updateToken(TokenDto tokenDto);
   bool isLoginUser();
 }
 
@@ -46,4 +50,26 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   bool isLoginUser() =>
       _preferences.getString(KeySharedPreferences.keyLogin) != null;
+
+  @override
+  String getRefreshToken() =>
+      _preferences.getString(KeySharedPreferences.keyRefreshToken) ?? "";
+
+  @override
+  String getAccessToken() =>
+      _preferences.getString(KeySharedPreferences.keyAccessToken) ?? "";
+
+  @override
+  Future<void> updateToken(TokenDto tokenDto) async {
+    await Future.wait({
+      _preferences.setString(
+        KeySharedPreferences.keyRefreshToken,
+        tokenDto.refreshToken,
+      ),
+      _preferences.setString(
+        KeySharedPreferences.keyAccessToken,
+        tokenDto.accessToken,
+      ),
+    });
+  }
 }

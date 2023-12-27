@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/core/error/exeption.dart';
+import 'package:multisitema_flutter/app/features/auth/data/model/token_dto.dart';
 import 'package:multisitema_flutter/app/features/auth/data/model/user_dto.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
 
@@ -10,7 +11,9 @@ abstract interface class AuthRemoteDataSource {
   Future<UserDto> signIn(LoginDto loginDto);
 
   // /api/auth/refresh
-  Future<void> refresh(String token);
+  Future<TokenDto> refresh(String token);
+
+  Future fetch(RequestOptions options);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -19,12 +22,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final Dio _dio;
 
   @override
-  Future<void> refresh(String token) async {
+  Future<TokenDto> refresh(String token) async {
     try {
-      final result = await _dio.post('/auth/refresh');
-      return;
-    } on DioException catch (e) {
-      return;
+      final result = await _dio.post('/auth/refresh', data: {
+        "token": token,
+      });
+      return TokenDto.fromJson(result.data);
+    } on DioException catch (_) {
+      throw Exception();
     }
   }
 
@@ -40,6 +45,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw UserException(errorMessage: e.response?.data["errorMessage"]);
       }
       throw Exception();
+    }
+  }
+
+  @override
+  Future fetch(RequestOptions options) {
+    try {
+      return _dio.fetch(options);
+    } catch (_) {
+      rethrow;
     }
   }
 }

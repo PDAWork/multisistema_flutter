@@ -17,17 +17,6 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource authLocalDataSource;
 
   @override
-  Future<Either<Failure, void>> refresh(String token) async {
-    try {
-      return Right(await authRemoteDataSource.refresh(token));
-    } on ServerException {
-      return Left(ServerFailure());
-    } on UserException catch (error) {
-      return Left(UserFailure(errorMessage: error.errorMessage));
-    }
-  }
-
-  @override
   Future<Either<Failure, void>> signIn(LoginEntity loginEntity) async {
     try {
       final user = await authRemoteDataSource.signIn(loginEntity.toDto());

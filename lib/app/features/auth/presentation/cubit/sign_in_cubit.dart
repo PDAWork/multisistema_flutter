@@ -1,14 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/entity/login_entity.dart';
-import 'package:multisitema_flutter/app/features/auth/domain/usecase/auth.dart';
+import 'package:multisitema_flutter/app/features/auth/domain/usecase/auth_use_case.dart';
 
 import '../../../../core/error/failure.dart';
 
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
-  final Auth authUseCase;
+  final AuthUseCase authUseCase;
   SignInCubit({required this.authUseCase}) : super(SignInInitial());
 
   Future<void> signIn(String login, String password) async {

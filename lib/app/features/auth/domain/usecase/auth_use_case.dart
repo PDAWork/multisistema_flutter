@@ -3,10 +3,10 @@ import 'package:multisitema_flutter/app/core/error/failure.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/entity/login_entity.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/repository/auth_repository.dart';
 
-class Auth {
+class AuthUseCase {
   final AuthRepository _authRepository;
 
-  Auth(this._authRepository);
+  AuthUseCase(this._authRepository);
 
   Future<Either<Failure, void>> signIn(LoginEntity loginEntity) async {
     return await _authRepository.signIn(loginEntity);

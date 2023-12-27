@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/app/di/locator_service.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/ui/sign_in.dart';
-import 'package:multisitema_flutter/app/features/splashscreen/ui/splash_screen.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/splash_screen.dart';
 import 'package:multisitema_flutter/app/service/AuthProvider.dart';
 import 'package:provider/provider.dart';
 

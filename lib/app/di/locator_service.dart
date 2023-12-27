@@ -3,8 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:multisitema_flutter/app/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:multisitema_flutter/app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/app/features/auth/data/repository/auth_repository_impl.dart';
+import 'package:multisitema_flutter/app/features/auth/data/repository/token_repository_impl.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/repository/auth_repository.dart';
-import 'package:multisitema_flutter/app/features/auth/domain/usecase/auth.dart';
+import 'package:multisitema_flutter/app/features/auth/domain/repository/token_repository.dart';
+import 'package:multisitema_flutter/app/features/auth/domain/usecase/auth_use_case.dart';
+import 'package:multisitema_flutter/app/features/auth/domain/usecase/token_use_case.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/features/information/presentation/information.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
@@ -23,7 +26,8 @@ Future<void> initLocatorService() async {
 
   // UseCases
 
-  sl.registerLazySingleton(() => Auth(sl()));
+  sl.registerLazySingleton(() => AuthUseCase(sl()));
+  sl.registerLazySingleton(() => TokenUseCase(sl()));
 
   // Repository
 
@@ -37,6 +41,13 @@ Future<void> initLocatorService() async {
   );
   sl.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(sl()),
+  );
+
+  sl.registerLazySingleton<TokenRepository>(
+    () => TokenRepositoryImpl(
+      sl(),
+      sl(),
+    ),
   );
 
   // External
@@ -59,7 +70,7 @@ Future<void> initLocatorService() async {
             compact: true,
             maxWidth: 90,
           ),
-          InterceptorApp(),
+          InterceptorApp(sl()),
         ],
       );
   });
