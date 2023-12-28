@@ -9,6 +9,15 @@ import 'package:multisitema_flutter/app/features/auth/domain/repository/token_re
 import 'package:multisitema_flutter/app/features/auth/domain/usecase/auth_use_case.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/usecase/token_use_case.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/data/data_source/hive/hive_local_data_source.dart';
+import 'package:multisitema_flutter/app/features/home/data/data_source/hive/hive_local_data_source_impl.dart';
+import 'package:multisitema_flutter/app/features/home/data/data_source/remote_data_source.dart';
+import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source.dart';
+import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source_impl.dart';
+import 'package:multisitema_flutter/app/features/home/data/repository/splash_screen_repository_impl.dart';
+import 'package:multisitema_flutter/app/features/home/domain/repository/splash_screen_repository.dart';
+import 'package:multisitema_flutter/app/features/home/domain/usecase/splash_screen_use_case.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/information/presentation/information.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
 import 'package:multisitema_flutter/app/core/network/interceptor_app.dart';
@@ -20,14 +29,18 @@ final sl = GetIt.instance;
 Future<void> initLocatorService() async {
   // Bloc/Cubit
 
+  sl.registerFactory(() => PageViewProvider());
+
   sl.registerFactory(() => SignInCubit(authUseCase: sl()));
 
-  sl.registerFactory(() => PageViewProvider());
+  sl.registerFactory(() => SplashScreenCubit(sl()));
 
   // UseCases
 
   sl.registerLazySingleton(() => AuthUseCase(sl()));
   sl.registerLazySingleton(() => TokenUseCase(sl()));
+
+  sl.registerLazySingleton(() => SplashScreenUseCase(sl()));
 
   // Repository
 
@@ -40,7 +53,7 @@ Future<void> initLocatorService() async {
     () => AuthLocalDataSourceImpl(sl()),
   );
   sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl()),
+    () => AuthRemoteDataSourceImpl(sl<Dio>()),
   );
 
   sl.registerLazySingleton<TokenRepository>(
@@ -49,6 +62,23 @@ Future<void> initLocatorService() async {
       sl(),
     ),
   );
+
+  sl.registerLazySingleton<SplashScreenRepository>(
+    () => SplashScreenRepositoryImpl(
+      remoteDataSource: sl(),
+      hiveLocalDataSource: sl(),
+      spLocalDataSource: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImpl(sl<Dio>()));
+  sl.registerLazySingleton<HiveLocalDataSource>(
+      () => HiveLocalDataSourceImpl());
+  sl.registerLazySingleton<SPLocalDataSource>(
+      () => SPLocalDataSourceImpl(sl()));
+
+  await sl<HiveLocalDataSource>().initDb();
 
   // External
   final preferences = await SharedPreferences.getInstance();

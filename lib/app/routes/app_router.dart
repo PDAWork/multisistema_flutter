@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/app/di/locator_service.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/ui/sign_in.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/home.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/splash_screen.dart';
 import 'package:multisitema_flutter/app/service/AuthProvider.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +24,10 @@ class AppRouter {
     routes: [
       GoRoute(
         redirect: (context, state) {
-          final isLoggedIn = !context.read<AuthProvider>().isLoginGet;
+          final isLoggedIn = context.read<AuthProvider>().isLoginGet;
           final isLoginRoute = state.matchedLocation == Pages.singIn.screenPath;
           if (isLoggedIn && isLoginRoute) {
-            return Pages.info.screenPath;
+            return Pages.splashScreen.screenPath;
           }
           return state.matchedLocation;
         },
@@ -47,7 +49,15 @@ class AppRouter {
       GoRoute(
         path: Pages.splashScreen.screenPath,
         name: Pages.splashScreen.screenName,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<SplashScreenCubit>(),
+          child: const SplashScreen(),
+        ),
+      ),
+      GoRoute(
+        path: Pages.home.screenPath,
+        name: Pages.home.screenName,
+        builder: (context, state) => const Home(),
       )
     ],
   );
