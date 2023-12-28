@@ -27,6 +27,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   String _mapFailureToMessage(Failure failure) {
     return switch (failure) {
+      ServerFailure() => "Сервер не отвечает зайдите позже",
       UserFailure(:final errorMessage) => errorMessage,
       // ServerFailure => "Ошибка сервера",
       _ => ""

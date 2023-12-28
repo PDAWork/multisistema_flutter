@@ -41,6 +41,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return UserDto.fromJson(result.data);
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionError) {
+        throw ServerException();
+      }
       if (e.response?.statusCode == 400) {
         throw UserException(errorMessage: e.response?.data["errorMessage"]);
       }

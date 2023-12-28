@@ -7,6 +7,7 @@ class AuthProvider {
   bool _isLogin = false;
   bool get isLoginGet => _isLogin;
   AuthProvider() {
+    print(sl<SharedPreferences>().get(KeySharedPreferences.keyLogin));
     _isLogin =
         sl<SharedPreferences>().get(KeySharedPreferences.keyLogin) != null;
   }
