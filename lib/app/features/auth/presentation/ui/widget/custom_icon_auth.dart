@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/app/style/color.dart';
 
 class CustomIconAuth extends StatelessWidget {
   const CustomIconAuth({
@@ -33,7 +34,7 @@ class _CustomContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
-    paint.color = Color(0xfff3874CF);
+    paint.color = customIconColor;
     var path = Path()
       ..lineTo(0, 0)
       ..lineTo(size.width, 0)

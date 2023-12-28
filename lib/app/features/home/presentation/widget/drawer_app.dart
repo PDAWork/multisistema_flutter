@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/routes/app_router.dart';
-import 'package:multisitema_flutter/app/routes/router_utils.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/app/core/widget/snack_bar.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/routes/app_router.dart';
@@ -8,6 +7,7 @@ import 'package:multisitema_flutter/app/routes/router_utils.dart';
 import 'package:multisitema_flutter/app/style/color.dart';
 import 'widget/custom_icon_auth.dart';
 
+// ignore: must_be_immutable
 class SignIn extends StatelessWidget {
   SignIn({super.key});
   bool isFinger = false;
@@ -134,6 +134,7 @@ class SignIn extends StatelessWidget {
                         showMessageDialog(state.message, context);
                       }
                       if (state is SeccuceState) {
+                        _dispose();
                         AppRouter.router.go(Pages.info.screenPath);
                       }
                     },

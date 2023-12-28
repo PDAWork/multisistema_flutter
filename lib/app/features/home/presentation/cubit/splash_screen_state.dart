@@ -8,13 +8,13 @@ sealed class SplashScreenState extends Equatable {
 }
 
 final class SplashScreenInitial extends SplashScreenState {
-  SplashScreenInitial();
+  const SplashScreenInitial();
 }
 
 final class LoadState extends SplashScreenState {
   final String firstName;
 
-  LoadState({required this.firstName});
+  const LoadState({required this.firstName});
 }
 
 final class SuccesState extends SplashScreenState {}
@@ -22,5 +22,5 @@ final class SuccesState extends SplashScreenState {}
 final class ErrorState extends SplashScreenState {
   final String message;
 
-  ErrorState(this.message);
+  const ErrorState(this.message);
 }

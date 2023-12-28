@@ -1,5 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:multisitema_flutter/app/features/auth/domain/entity/token_entity.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/repository/token_repository.dart';
 
 class TokenUseCase {

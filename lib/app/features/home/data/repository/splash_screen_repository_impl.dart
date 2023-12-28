@@ -21,14 +21,15 @@ class SplashScreenRepositoryImpl implements SplashScreenRepository {
     bool testIsInternet = false,
   }) async {
     try {
-      if (testIsInternet) if (!testIsInternet) return Right(unit);
+      if (testIsInternet) if (!testIsInternet) return const Right(unit);
       final objectList = await remoteDataSource.getObject();
       await hiveLocalDataSource.setObject(objectList);
-      return Right(unit);
+      return const Right(unit);
     } catch (_) {
       return Left(ServerFailure());
     }
   }
 
+  @override
   String getFirstName() => spLocalDataSource.getfirstName();
 }

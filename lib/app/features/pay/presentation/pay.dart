@@ -33,12 +33,12 @@ class _PayState extends State<Pay> {
             ),
             TextField(
               controller: value,
-              decoration: InputDecoration(hintText: 'Сумма'),
+              decoration: const InputDecoration(hintText: 'Сумма'),
               keyboardType: TextInputType.number,
             ),
             ElevatedButton(
               onPressed: () async {
-                final uuid = Uuid().v4();
+                final uuid = const Uuid().v4();
                 final dio = Dio(
                   BaseOptions(
                     headers: {
@@ -60,7 +60,7 @@ class _PayState extends State<Pay> {
                     ],
                   );
                 try {
-                  final initialUri = await getInitialUri();
+                  await getInitialUri();
                   final result = await dio.post(
                     'https://api.yookassa.ru/v3/payments',
                     data: {
@@ -74,10 +74,10 @@ class _PayState extends State<Pay> {
                   );
                   await launchUrl(
                     Uri.parse(result.data['confirmation']['confirmation_url']),
-                    webViewConfiguration: WebViewConfiguration(),
+                    webViewConfiguration: const WebViewConfiguration(),
                   );
                   int count = 0;
-                  final _sub = linkStream.listen(
+                  linkStream.listen(
                     (String? link) async {
                       if (count == 0) {
                         count++;
@@ -92,11 +92,11 @@ class _PayState extends State<Pay> {
                     },
                     onError: (err) {},
                   );
-                } on FormatException {}
-
-                print('asdasd');
+                } on FormatException {
+                  throw Exception();
+                }
               },
-              child: Text('Пополнить счет'),
+              child: const Text('Пополнить счет'),
             )
           ],
         ),

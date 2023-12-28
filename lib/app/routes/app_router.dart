@@ -8,7 +8,7 @@ import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_do
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/home.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/splash_screen.dart';
-import 'package:multisitema_flutter/app/service/AuthProvider.dart';
+import 'package:multisitema_flutter/app/service/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../features/information/presentation/information.dart';

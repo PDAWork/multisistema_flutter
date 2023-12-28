@@ -3,7 +3,6 @@ import 'package:multisitema_flutter/app/core/error/failure.dart';
 import 'package:multisitema_flutter/app/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:multisitema_flutter/app/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/app/features/auth/data/mapper/token_mapper.dart';
-import 'package:multisitema_flutter/app/features/auth/data/model/token_dto.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/entity/token_entity.dart';
 import 'package:multisitema_flutter/app/features/auth/domain/repository/token_repository.dart';
 

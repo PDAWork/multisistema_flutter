@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/app/service/AuthProvider.dart';
+import 'package:multisitema_flutter/app/service/auth_provider.dart';
 import 'package:multisitema_flutter/app/style/app_theme.dart';
 import 'package:provider/provider.dart';
 

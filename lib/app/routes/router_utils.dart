@@ -14,7 +14,6 @@ extension AppPageExtension on Pages {
       Pages.splashScreen => "/splash_screen",
       Pages.home => "/home",
       Pages.error => "/error",
-      _ => "/"
     };
   }
 
@@ -25,7 +24,6 @@ extension AppPageExtension on Pages {
       Pages.splashScreen => "SPLASHSCREEN",
       Pages.home => "HOME",
       Pages.error => "ERROR",
-      _ => "HOME"
     };
   }
 

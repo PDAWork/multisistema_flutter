@@ -16,14 +16,14 @@ final ThemeData appTheme = ThemeData(
 );
 
 (String greeting, Color setColorOfHour) style() {
-  int _hour = DateTime.now().hour;
-  if (_hour > 0 && _hour < 5) {
+  int hour = DateTime.now().hour;
+  if (hour > 0 && hour < 5) {
     return ("Доброй ночи,", colorNight);
-  } else if (_hour >= 5 && _hour < 10) {
+  } else if (hour >= 5 && hour < 10) {
     return ("Доброе утро,", colorMorning);
-  } else if (_hour >= 10 && _hour < 18) {
+  } else if (hour >= 10 && hour < 18) {
     return ("Добрый день,", colorDay);
-  } else if (_hour >= 18 && _hour < 22) {
+  } else if (hour >= 18 && hour < 22) {
     return ("Добрый вечер,", colorEvening);
   }
   return ("Доброй ночи,", colorNight);
