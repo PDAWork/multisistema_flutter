@@ -18,8 +18,9 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
 
     result.fold(
       (l) => emit(ErrorState('Ошибка')),
-      (r) => emit(
-        SuccesState(),
+      (r) => Future.delayed(
+        const Duration(seconds: 1),
+        () => emit(SuccesState()),
       ),
     );
   }

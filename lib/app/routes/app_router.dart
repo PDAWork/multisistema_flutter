@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/app/di/locator_service.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/ui/sign_in.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/home.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/splash_screen.dart';
@@ -57,7 +58,10 @@ class AppRouter {
       GoRoute(
         path: Pages.home.screenPath,
         name: Pages.home.screenName,
-        builder: (context, state) => const Home(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => sl<DropDownButtonAppCubit>()..init(),
+          child: const Home(),
+        ),
       )
     ],
   );

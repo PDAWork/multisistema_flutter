@@ -9,3 +9,5 @@ class UserFailure extends Failure {
 class ServerFailure extends Failure {}
 
 class CacheFailure extends Failure {}
+
+class HiveDataFailure extends Failure {}

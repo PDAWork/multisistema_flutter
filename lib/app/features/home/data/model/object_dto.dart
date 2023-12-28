@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'object.g.dart';
+part 'object_dto.g.dart';
 
 @HiveType(typeId: 0)
 class ObjectDto {
@@ -9,28 +9,31 @@ class ObjectDto {
   @HiveField(2)
   final String house;
   @HiveField(3)
-  final String label;
+  final String number;
   @HiveField(4)
-  final String accountId;
+  final String label;
   @HiveField(5)
-  final String personalAccount;
+  final String accountId;
   @HiveField(6)
-  final DateTime connectDate;
+  final String personalAccount;
   @HiveField(7)
-  final bool enable;
+  final DateTime connectDate;
   @HiveField(8)
-  final int balanceObject;
+  final bool enable;
   @HiveField(9)
-  final String accesLevel;
+  final int balanceObject;
   @HiveField(10)
-  final String objectCompanyName;
+  final String accesLevel;
   @HiveField(11)
+  final String objectCompanyName;
+  @HiveField(12)
   final String? objectCompanyUrl;
 
   ObjectDto({
     required this.id,
     required this.house,
     required this.label,
+   required this.number,
     required this.accountId,
     required this.personalAccount,
     required this.connectDate,
@@ -46,6 +49,7 @@ class ObjectDto {
       id: json['id'],
       house: json['house'],
       label: json['lable'],
+      number: json['number'],
       accountId: json['accountId'],
       personalAccount: json['personalAccount'],
       connectDate: DateTime.parse(json['connectDate']),

@@ -7,6 +7,7 @@ extension ObjectMapper on ObjectDto {
       id: id,
       label: label,
       house: house,
+      number: number,
     );
   }
 }

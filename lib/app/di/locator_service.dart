@@ -14,9 +14,13 @@ import 'package:multisitema_flutter/app/features/home/data/data_source/hive/hive
 import 'package:multisitema_flutter/app/features/home/data/data_source/remote_data_source.dart';
 import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source.dart';
 import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source_impl.dart';
+import 'package:multisitema_flutter/app/features/home/data/repository/drop_down_button_app_repository_impl.dart';
 import 'package:multisitema_flutter/app/features/home/data/repository/splash_screen_repository_impl.dart';
+import 'package:multisitema_flutter/app/features/home/domain/repository/drop_down_button_app_repository.dart';
 import 'package:multisitema_flutter/app/features/home/domain/repository/splash_screen_repository.dart';
+import 'package:multisitema_flutter/app/features/home/domain/usecase/drop_down_button_app_use_case.dart';
 import 'package:multisitema_flutter/app/features/home/domain/usecase/splash_screen_use_case.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/information/presentation/information.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
@@ -35,12 +39,18 @@ Future<void> initLocatorService() async {
 
   sl.registerFactory(() => SplashScreenCubit(sl()));
 
+  sl.registerFactory(() => DropDownButtonAppCubit(
+        sl<DropdownButtonAppUseCase>(),
+      ));
+
   // UseCases
 
   sl.registerLazySingleton(() => AuthUseCase(sl()));
   sl.registerLazySingleton(() => TokenUseCase(sl()));
 
   sl.registerLazySingleton(() => SplashScreenUseCase(sl()));
+
+  sl.registerLazySingleton(() => DropdownButtonAppUseCase(sl()));
 
   // Repository
 
@@ -77,6 +87,9 @@ Future<void> initLocatorService() async {
       () => HiveLocalDataSourceImpl());
   sl.registerLazySingleton<SPLocalDataSource>(
       () => SPLocalDataSourceImpl(sl()));
+
+  sl.registerLazySingleton<DropdownButtonAppRepository>(
+      () => DropdownButtonAppRepositoryImpl(hiveLocalDataSource: sl()));
 
   await sl<HiveLocalDataSource>().initDb();
 

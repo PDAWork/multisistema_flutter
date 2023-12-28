@@ -5,3 +5,5 @@ class UserException implements Exception {
 
   UserException({required this.errorMessage});
 }
+
+class HiveDataException implements ServerException {}
