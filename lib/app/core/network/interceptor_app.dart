@@ -4,17 +4,13 @@ import 'package:multisitema_flutter/app/features/auth/data/data_source/auth_remo
 import 'package:multisitema_flutter/app/features/auth/domain/usecase/token_use_case.dart';
 
 class InterceptorApp extends QueuedInterceptor {
-  final TokenUseCase _tokenUseCase;
-
-  InterceptorApp(this._tokenUseCase);
-
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       try {
-        final token = _tokenUseCase.getRefreshToken();
+        final token = sl<TokenUseCase>().getRefreshToken();
         if (token != '') {
-          await _tokenUseCase.updateToken(token);
+          await sl<TokenUseCase>().updateToken(token);
           final response =
               await sl<AuthRemoteDataSource>().fetch(err.requestOptions);
           return handler.resolve(response);
@@ -29,7 +25,7 @@ class InterceptorApp extends QueuedInterceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = _tokenUseCase.getAccessToken();
+    final token = sl<TokenUseCase>().getAccessToken();
     if (token.isEmpty) {
       super.onRequest(options, handler);
     } else {

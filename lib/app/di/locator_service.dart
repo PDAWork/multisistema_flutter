@@ -70,7 +70,7 @@ Future<void> initLocatorService() async {
             compact: true,
             maxWidth: 90,
           ),
-          InterceptorApp(sl()),
+          InterceptorApp(),
         ],
       );
   });
