@@ -18,3 +18,5 @@ const Color primaryColor = Color(0xffbf1e27);
 const Color colorTextDemo = Color(0xffbbdefb);
 
 const Color customIconColor = Color(0xff3874CF);
+
+const Color colorTextColor = Color(0xffA0A0A0);

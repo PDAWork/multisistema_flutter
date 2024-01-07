@@ -1,11 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/app/core/error/exeption.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
+import 'package:multisitema_flutter/app/features/home/data/model/meter_body_dto.dart';
 import 'package:multisitema_flutter/app/features/home/data/model/object_dto.dart';
+import 'package:multisitema_flutter/app/features/home/data/model/sensor_dto.dart';
 
 abstract interface class RemoteDataSource {
   // api/object/objects
   Future<List<ObjectDto>> getObject();
+
+  // api/meter/meter
+  // Body : {
+  //    idObject
+  //    data - default now Date
+  // }
+  Future<List<SensorDto>> getMeters(MeterBodyDto meterBody);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -20,6 +29,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           .map((element) => ObjectDto.fromJson(element))
           .toList();
     } catch (e) {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<SensorDto>> getMeters(MeterBodyDto meterBody) async {
+    try {
+      final response =
+          await _dio.get(ApiEndpoints.meters, data: meterBody.toJson());
+      return (response.data as List).map((e) => SensorDto.fromJson(e)).toList();
+    } catch (e) {
+      print(e);
       throw ServerException();
     }
   }

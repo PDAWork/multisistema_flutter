@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multisitema_flutter/app/features/home/domain/entity/meter_body_entity.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/home_cubit.dart';
 
 class DropdownButtonApp extends StatelessWidget {
   const DropdownButtonApp({super.key});
@@ -9,6 +11,14 @@ class DropdownButtonApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DropDownButtonAppCubit, DropDownButtonAppState>(
       builder: (context, state) {
+        if (state is OnSelectItemState) {
+          context.read<HomeCubit>().init(
+                MeterBodyEntity(
+                  idObject: state.selectItem.id,
+                  date: DateTime.now(),
+                ),
+              );
+        }
         return switch (state) {
           SeccuceState(:final items, :final selectItem) ||
           OnSelectItemState(:final items, :final selectItem) ||

@@ -134,7 +134,6 @@ class SignIn extends StatelessWidget {
                         showMessageDialog(state.message, context);
                       }
                       if (state is SeccuceState) {
-                        _dispose();
                         AppRouter.router.go(Pages.info.screenPath);
                       }
                     },

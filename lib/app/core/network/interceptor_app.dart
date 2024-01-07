@@ -6,7 +6,7 @@ import 'package:multisitema_flutter/app/features/auth/domain/usecase/token_use_c
 class InterceptorApp extends QueuedInterceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
       try {
         final token = sl<TokenUseCase>().getRefreshToken();
         if (token != '') {

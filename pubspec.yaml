@@ -52,6 +52,9 @@ dependencies:
   go_router: ^12.1.1
   flutter_deep_linking: ^0.2.1
   uni_links: ^0.5.1
+  freezed: ^2.4.6
+  freezed_annotation: ^2.4.1
+  json_serializable: ^6.7.1
  
  
 

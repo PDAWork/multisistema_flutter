@@ -10,6 +10,7 @@ abstract final class ApiEndpoints {
   static const String signIn = "auth/signIn";
   static const String refreshToken = "auth/refresh";
   static const String objects = "object/objects";
+  static const String meters = "meter/meter";
 
   static const String userProfile = "user/profile";
   static const String userObjects = "user/objects";

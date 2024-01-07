@@ -15,12 +15,16 @@ import 'package:multisitema_flutter/app/features/home/data/data_source/remote_da
 import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source.dart';
 import 'package:multisitema_flutter/app/features/home/data/data_source/shared_preferences/sp_local_data_source_impl.dart';
 import 'package:multisitema_flutter/app/features/home/data/repository/drop_down_button_app_repository_impl.dart';
+import 'package:multisitema_flutter/app/features/home/data/repository/home_repository_impl.dart';
 import 'package:multisitema_flutter/app/features/home/data/repository/splash_screen_repository_impl.dart';
 import 'package:multisitema_flutter/app/features/home/domain/repository/drop_down_button_app_repository.dart';
+import 'package:multisitema_flutter/app/features/home/domain/repository/home_repository.dart';
 import 'package:multisitema_flutter/app/features/home/domain/repository/splash_screen_repository.dart';
 import 'package:multisitema_flutter/app/features/home/domain/usecase/drop_down_button_app_use_case.dart';
+import 'package:multisitema_flutter/app/features/home/domain/usecase/home_use_case.dart';
 import 'package:multisitema_flutter/app/features/home/domain/usecase/splash_screen_use_case.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/information/presentation/information.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
@@ -43,6 +47,8 @@ Future<void> initLocatorService() async {
         sl<DropdownButtonAppUseCase>(),
       ));
 
+  sl.registerFactory(() => HomeCubit(sl<HomeUseCase>()));
+
   // UseCases
 
   sl.registerLazySingleton(() => AuthUseCase(sl()));
@@ -51,6 +57,8 @@ Future<void> initLocatorService() async {
   sl.registerLazySingleton(() => SplashScreenUseCase(sl()));
 
   sl.registerLazySingleton(() => DropdownButtonAppUseCase(sl()));
+
+  sl.registerLazySingleton(() => HomeUseCase(sl()));
 
   // Repository
 
@@ -81,6 +89,7 @@ Future<void> initLocatorService() async {
     ),
   );
 
+
   sl.registerLazySingleton<RemoteDataSource>(
       () => RemoteDataSourceImpl(sl<Dio>()));
   sl.registerLazySingleton<HiveLocalDataSource>(
@@ -90,6 +99,9 @@ Future<void> initLocatorService() async {
 
   sl.registerLazySingleton<DropdownButtonAppRepository>(
       () => DropdownButtonAppRepositoryImpl(hiveLocalDataSource: sl()));
+
+  sl.registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(remoteDataSource: sl()));
 
   await sl<HiveLocalDataSource>().initDb();
 
