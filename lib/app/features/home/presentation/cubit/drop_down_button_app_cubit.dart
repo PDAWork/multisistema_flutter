@@ -6,30 +6,49 @@ import 'package:multisitema_flutter/app/features/home/domain/usecase/drop_down_b
 part 'drop_down_button_app_state.dart';
 
 class DropDownButtonAppCubit extends Cubit<DropDownButtonAppState> {
-  DropDownButtonAppCubit(this.useCase) : super(DropDownButtonAppInitial());
+  DropDownButtonAppCubit(this.useCase)
+      : super(DropDownButtonAppInitial(DateTime.now()));
 
   final DropdownButtonAppUseCase useCase;
 
   void init() async {
-    emit(LoadlState());
+    emit(LoadlState(DateTime.now()));
     final value = await useCase.call();
     value.fold(
-      (l) => emit(const ErrorState(errorMessage: 'Упс, нет не одного объекта')),
+      (l) => emit(ErrorState(
+        errorMessage: 'Упс, нет не одного объекта',
+        date: DateTime.now(),
+      )),
       (items) => emit(
         OnSelectItemState(
-          items: items,
-          selectItem: items.first,
-        ),
+            items: items, selectItem: items.first, date: DateTime.now()),
       ),
     );
   }
 
   void onChanged(ObjectEntity item) {
     switch (state) {
-      case OnSelectItemState(:final items):
+      case OnSelectItemState(:final items, :final date):
         {
-          emit(OnChangedItemState(items: items, selectItem: item));
-          emit(OnSelectItemState(items: items, selectItem: item));
+          emit(OnChangedItemState(items: items, selectItem: item, date: date));
+          emit(OnSelectItemState(items: items, selectItem: item, date: date));
+          break;
+        }
+      default:
+        {
+          break;
+        }
+    }
+  }
+
+  void onSelectDate(DateTime date) {
+    switch (state) {
+      case OnSelectItemState(:final items, :final selectItem):
+        {
+          emit(OnChangedItemState(
+              items: items, selectItem: selectItem, date: date));
+          emit(OnSelectItemState(
+              items: items, selectItem: selectItem, date: date));
           break;
         }
       default:

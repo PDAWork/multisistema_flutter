@@ -52,10 +52,10 @@ class ItemCardIndicators extends StatelessWidget {
         child: ListTile(
           leading: typeIcon(
             meter.typeMeter,
-            meter.metersVals.first,
+            meter.metersVals.firstOrNull ?? 0,
             stateNumber: meter.state?.id ?? 0,
           ),
-          title: Text('${meter.metersVals.first} '), // TODO unit
+          title: Text('${meter.metersVals.firstOrNull ?? 0} '), // TODO unit
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,16 +108,16 @@ class ItemCardIndicators extends StatelessWidget {
         child: ListTile(
           leading: typeIcon(
             meter.typeMeter,
-            meter.metersVals.first,
+            meter.metersVals.firstOrNull ?? 0,
             stateNumber: meter.state?.id ?? 0,
           ),
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${meter.metersVals.first} '), // TODO unit
+              Text('${meter.metersVals.firstOrNull ?? 0} '), // TODO unit
               Text(
-                'T1:${meter.metersVals.first} T2:${meter.metersVals.first}',
+                'T1:${meter.metersVals.firstOrNull ?? 0} T2:${meter.metersVals.lastOrNull ?? 0}',
                 style: TextStyle(fontSize: 13),
               ),
             ],
@@ -144,7 +144,7 @@ class ItemCardIndicators extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: typeIcon(meter.typeMeter, meter.metersVals.first),
+          leading: typeIcon(meter.typeMeter, meter.metersVals.firstOrNull ?? 0),
           title: Text(meter.infoText),
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,

@@ -15,7 +15,7 @@ class DropdownButtonApp extends StatelessWidget {
           context.read<HomeCubit>().init(
                 MeterBodyEntity(
                   idObject: state.selectItem.id,
-                  date: DateTime.now(),
+                  date: state.date,
                 ),
               );
         }
