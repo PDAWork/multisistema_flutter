@@ -12,4 +12,9 @@ class SPLocalDataSourceImpl implements SPLocalDataSource {
     return _sharedPreferences.getString(KeySharedPreferences.keyFirstName) ??
         "Пользователь";
   }
+
+  @override
+  String getEmail() =>
+      _sharedPreferences.getString(KeySharedPreferences.keyLogin) ??
+      "Почта пользователя";
 }

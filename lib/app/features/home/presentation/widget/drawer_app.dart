@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/app/style/color.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
@@ -6,10 +7,9 @@ class DrawerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // backgroundColor: ThemeApp.primaryColor,
       child: ListView(
         physics:
-            const PageScrollPhysics(), //const AlwaysScrollableScrollPhysics()
+            const PageScrollPhysics(), 
         padding: EdgeInsets.zero,
         shrinkWrap: true,
         children: [
@@ -26,7 +26,27 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.payment),
-            title: const Text('Баланс 110 руб'),
+            title: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Баланс 110 руб'),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 7,
+                    vertical: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: Text(
+                    '1 месяц',
+                    style: const TextStyle(fontSize: 13, color: Colors.white),
+                  ),
+                )
+              ],
+            ),
           ),
           ListTile(
             onTap: () {},
