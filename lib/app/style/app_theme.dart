@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 import 'color.dart';
 
 final ThemeData appTheme = ThemeData(
+  useMaterial3: false,
   colorScheme: const ColorScheme.light(primary: primaryColor),
   primaryColor: primaryColor,
   appBarTheme: const AppBarTheme(
     backgroundColor: primaryColor,
+    foregroundColor: Colors.white,
+  ),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
+    style: ButtonStyle(
+      foregroundColor: MaterialStatePropertyAll(Colors.white),
+    ),
   ),
   textButtonTheme: const TextButtonThemeData(
     style: ButtonStyle(

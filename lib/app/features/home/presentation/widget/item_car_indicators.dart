@@ -20,19 +20,33 @@ class ItemCardIndicators extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: typeIcon(meter.typeMeter, meter.metersVals.firstOrNull ?? 0),
-          title: Text('${meter.metersVals.firstOrNull ?? "0"} '), // TODO unit
+          leading: Image.asset(
+            typeIconPath(
+              meter.typeMeter,
+              meter.metersVals.firstOrNull ?? 0,
+            ),
+            width: 32,
+          ),
+          title: Text(
+            '${meter.metersVals.firstOrNull ?? "0"} ',
+            style: Theme.of(context).textTheme.titleMedium,
+          ), // TODO unit
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}"),
+                "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               meter.state?.name != null
                   ? meter.state?.id != 0
                       ? Text(
                           meter.state?.name ?? "",
-                          style: TextStyle(color: primaryColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: primaryColor),
                         )
                       : const SizedBox()
                   : const SizedBox(),
@@ -50,20 +64,34 @@ class ItemCardIndicators extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: typeIcon(
-            meter.typeMeter,
-            meter.metersVals.firstOrNull ?? 0,
-            stateNumber: meter.state?.id ?? 0,
+          leading: Image.asset(
+            typeIconPath(
+              meter.typeMeter,
+              meter.metersVals.firstOrNull ?? 0,
+              stateNumber: meter.state?.id ?? 0,
+            ),
+            width: 32,
           ),
-          title: Text('${meter.metersVals.firstOrNull ?? 0} '), // TODO unit
+          title: Text(
+            '${meter.metersVals.firstOrNull ?? 0} ',
+            style: Theme.of(context).textTheme.titleMedium,
+          ), // TODO unit
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}"),
+                "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               (meter.state?.id ?? 0) != 0
-                  ? Text(meter.state?.name ?? "")
+                  ? Text(
+                      meter.state?.name ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
+                          .copyWith(color: primaryColor),
+                    )
                   : const SizedBox(),
             ],
           ),
@@ -83,7 +111,10 @@ class ItemCardIndicators extends StatelessWidget {
             value: false,
             onChanged: (value) {},
           ),
-          title: Text(meter.infoText),
+          title: Text(
+            meter.infoText,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,19 +137,25 @@ class ItemCardIndicators extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: typeIcon(
-            meter.typeMeter,
-            meter.metersVals.firstOrNull ?? 0,
-            stateNumber: meter.state?.id ?? 0,
+          leading: Image.asset(
+            typeIconPath(
+              meter.typeMeter,
+              meter.metersVals.firstOrNull ?? 0,
+              stateNumber: meter.state?.id ?? 0,
+            ),
+            width: 32,
           ),
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${meter.metersVals.firstOrNull ?? 0} '), // TODO unit
+              Text(
+                '${meter.metersVals.firstOrNull ?? 0} ',
+                style: Theme.of(context).textTheme.titleMedium,
+              ), // TODO unit
               Text(
                 'T1:${meter.metersVals.firstOrNull ?? 0} T2:${meter.metersVals.lastOrNull ?? 0}',
-                style: TextStyle(fontSize: 13),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ],
           ),
@@ -127,9 +164,14 @@ class ItemCardIndicators extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}"),
+                "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               meter.state?.id != 0
-                  ? Text(meter.state?.name ?? "")
+                  ? Text(
+                      meter.state?.name ?? "",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    )
                   : const SizedBox(),
             ],
           ),
@@ -144,70 +186,54 @@ class ItemCardIndicators extends StatelessWidget {
           ),
         ),
         child: ListTile(
-          leading: typeIcon(meter.typeMeter, meter.metersVals.firstOrNull ?? 0),
-          title: Text(meter.infoText),
+          leading: Image.asset(
+            typeIconPath(meter.typeMeter, meter.metersVals.firstOrNull ?? 0),
+            width: 32,
+          ),
+          title: Text(
+            meter.infoText,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           subtitle: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}"),
+                "${meter.meterName == "" ? meter.typeMeter.name : meter.meterName} ${meter.snMeter}",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
               meter.state?.id != 0
-                  ? Text(meter.state?.name ?? '')
+                  ? Text(
+                      meter.state?.name ?? '',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    )
                   : const SizedBox(),
             ],
           ),
         ),
       );
     }
-    return SizedBox();
+    return const SizedBox();
   }
 
-  Widget typeIcon(TypeMeterEntity typeSensor, double vals,
-      {int stateNumber = 0}) {
+  String typeIconPath(
+    TypeMeterEntity typeSensor,
+    double vals, {
+    int stateNumber = 0,
+  }) {
     return switch (typeSensor.id) {
-      0 => Image.asset(
-          'assets/ic_unknown.png',
-        ),
-      1 => Image.asset(
-          'assets/ic_cold_water.png',
-        ),
-      2 => Image.asset(
-          'assets/ic_warm_water.png',
-        ),
-      3 => Image.asset(
-          'assets/ic_gaz.png',
-        ),
+      0 => 'assets/ic_unknown.png',
+      1 => 'assets/ic_cold_water.png',
+      2 => 'assets/ic_warm_water.png',
+      3 => 'assets/ic_gaz.png',
       5 => stateNumber != 0
-          ? Image.asset(
-              'assets/ic_temper_active.png',
-            )
-          : Image.asset(
-              'assets/ic_temper.png',
-            ),
-      9 => vals == 0
-          ? Image.asset(
-              'assets/ic_sensor.png',
-            )
-          : Image.asset(
-              'assets/ic_sensor_active.png',
-            ),
-      8 => Image.asset(
-          'assets/ic_electro.png',
-        ),
-      10 => vals == 0
-          ? Image.asset(
-              'assets/ic_kran.png',
-            )
-          : Image.asset(
-              'assets/ic_kran_active.png',
-            ),
-      13 => Image.asset(
-          'assets/ic_heat.png',
-        ),
-      _ => Image.asset(
-          'assets/ic_unknown.png',
-        )
+          ? 'assets/ic_temper_active.png'
+          : 'assets/ic_temper.png',
+      9 => vals == 0 ? 'assets/ic_sensor.png' : 'assets/ic_sensor_active.png',
+      8 => 'assets/ic_electro.png',
+      10 => vals == 0 ? 'assets/ic_kran.png' : 'assets/ic_kran_active.png',
+      13 => 'assets/ic_heat.png',
+      _ => 'assets/ic_unknown.png',
     };
   }
 }

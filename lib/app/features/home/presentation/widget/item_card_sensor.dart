@@ -27,7 +27,6 @@ class ItemCardSensor extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                flex: 2,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,25 +35,29 @@ class ItemCardSensor extends StatelessWidget {
                       children: [
                         Text(
                           "${sensor.rssi} dBm",
-                          style: const TextStyle(
-                            color: colorTextColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: colorTextColor,
+                                  ),
                         ),
                         const SizedBox(width: 5),
-                        signalIcon(sensor.rssi)
+                        Image.asset(
+                          signalIconPath(sensor.rssi),
+                          width: 16,
+                        )
                       ],
                     ),
                     Text(
                       sensor.name == '' ? 'Контроллер' : sensor.name,
-                      style: const TextStyle(
-                        color: colorTextColor,
-                      ),
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                            color: colorTextColor,
+                          ),
                     ),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.cloud_upload_rounded,
-                          size: 18,
+                          size: 16,
                           color: colorTextColor,
                         ),
                         const SizedBox(
@@ -63,28 +66,29 @@ class ItemCardSensor extends StatelessWidget {
                         Text(
                           DateFormat('dd.MM.yyyy kk:mm')
                               .format(sensor.lastConnection),
-                          style: const TextStyle(
-                            color: colorTextColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: colorTextColor,
+                                  ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
+              // TODO пока не хнаю что с эти делать
+              // Expanded(
+              //   child: Align(
+              //     alignment: Alignment.bottomCenter,
+              //     child: Text(
+              //       sensor.checkPeriodDipslay,
+              //       style: const TextStyle(
+              //         color: colorTextColor,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    sensor.checkPeriodDipslay,
-                    style: const TextStyle(
-                      color: colorTextColor,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -93,9 +97,10 @@ class ItemCardSensor extends StatelessWidget {
                       children: [
                         Text(
                           "${sensor.batery} %",
-                          style: const TextStyle(
-                            color: colorTextColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: colorTextColor,
+                                  ),
                         ),
                         const SizedBox(
                           width: 5,
@@ -104,7 +109,7 @@ class ItemCardSensor extends StatelessWidget {
                           quarterTurns: 45,
                           child: Icon(
                             bataryIcon(sensor.batery),
-                            size: 18,
+                            size: 16,
                             color: colorTextColor,
                           ),
                         )
@@ -121,7 +126,7 @@ class ItemCardSensor extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.storage_outlined,
-                          size: 18,
+                          size: 16,
                           color: colorTextColor,
                         ),
                         const SizedBox(
@@ -130,9 +135,10 @@ class ItemCardSensor extends StatelessWidget {
                         Text(
                           DateFormat('dd.MM.yyyy kk:mm')
                               .format(sensor.requestDate ?? DateTime.now()),
-                          style: const TextStyle(
-                            color: colorTextColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium!.copyWith(
+                                    color: colorTextColor,
+                                  ),
                         ),
                       ],
                     ),
@@ -147,7 +153,9 @@ class ItemCardSensor extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     sensor.lastConnectionWarning,
-                    style: const TextStyle(color: primaryColor),
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: primaryColor,
+                        ),
                   ),
                 )
         ],
@@ -155,39 +163,21 @@ class ItemCardSensor extends StatelessWidget {
     );
   }
 
-  Widget signalIcon(String rssi) {
+  String signalIconPath(String rssi) {
     if (int.parse(rssi) >= -59) {
-      return Image.asset(
-        'assets/network_5.png',
-        width: 20,
-      );
+      return 'assets/network_5.png';
     } else if (int.parse(rssi) >= -69) {
-      return Image.asset(
-        'assets/network_4.png',
-        width: 20,
-      );
+      return 'assets/network_4.png';
     } else if (int.parse(rssi) >= -79) {
-      return Image.asset(
-        'assets/network_3.png',
-        width: 20,
-      );
+      return 'assets/network_3.png';
     } else if (int.parse(rssi) >= -89) {
-      return Image.asset(
-        'assets/network_2.png',
-        width: 20,
-      );
-    } else {
-      return Image.asset(
-        'assets/network_1.png',
-        width: 20,
-      );
+      return 'assets/network_2.png';
     }
+    return 'assets/network_1.png';
   }
 
   IconData bataryIcon(int charge) {
-    if (charge == 0) {
-      return Icons.battery_alert_rounded;
-    }
+    if (charge == 0) return Icons.battery_alert_rounded;
     if (charge <= 14) {
       return Icons.battery_0_bar_rounded;
     } else if (charge <= 28) {
@@ -200,8 +190,7 @@ class ItemCardSensor extends StatelessWidget {
       return Icons.battery_5_bar_rounded;
     } else if (charge <= 84) {
       return Icons.battery_6_bar_rounded;
-    } else {
-      return Icons.battery_full;
     }
+    return Icons.battery_full;
   }
 }

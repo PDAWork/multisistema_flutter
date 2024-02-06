@@ -155,7 +155,9 @@ class SignIn extends StatelessWidget {
                                       password.text,
                                     );
                               },
-                              child: const Text('Войти'),
+                              child: const Text(
+                                'Войти',
+                              ),
                             ),
                           ),
                       };

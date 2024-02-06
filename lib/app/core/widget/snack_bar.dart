@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 void showMessageDialog(String title, BuildContext context) {
   final query = MediaQuery.of(context);
   final width = query.size.width * 0.80;
-  final height = query.size.height * 0.023 < 20
-      ? 20.0
-      : MediaQuery.of(context).size.height * 0.023;
+  // final height = query.size.height  < 20
+  //     ? 20.0
+  //     : MediaQuery.of(context).size.height * 0.023;
+  final height = query.size.height * 0.023;
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       dismissDirection: DismissDirection.startToEnd,
