@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/app/di/locator_service.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/app/features/auth/presentation/ui/sign_in.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/bloc/drop_down_button_app/drop_down_button_app_bloc.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/bloc/home/home_bloc.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/home.dart';
 import 'package:multisitema_flutter/app/features/home/presentation/splash_screen.dart';
 import 'package:multisitema_flutter/app/service/auth_provider.dart';
@@ -36,7 +37,7 @@ class AppRouter {
         path: Pages.singIn.screenPath,
         name: Pages.singIn.screenName,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<SignInCubit>(),
+          create: (context) => service<SignInCubit>(),
           child: SignIn(),
         ),
       ),
@@ -44,7 +45,7 @@ class AppRouter {
         path: Pages.info.screenPath,
         name: Pages.info.screenName,
         builder: (context, state) => ChangeNotifierProvider(
-          create: (context) => sl<PageViewProvider>(),
+          create: (context) => service<PageViewProvider>(),
           child: const Information(),
         ),
       ),
@@ -52,7 +53,7 @@ class AppRouter {
         path: Pages.splashScreen.screenPath,
         name: Pages.splashScreen.screenName,
         builder: (context, state) => BlocProvider(
-          create: (context) => sl<SplashScreenCubit>(),
+          create: (context) => service<SplashScreenCubit>(),
           child: const SplashScreen(),
         ),
       ),
@@ -61,8 +62,11 @@ class AppRouter {
         name: Pages.home.screenName,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => sl<DropDownButtonAppCubit>()..init()),
-            BlocProvider(create: (_) => sl<HomeCubit>())
+            BlocProvider(
+              create: (_) => service<DropDownButtonAppBloc>()
+                ..add(DropDownButtonAppInit()),
+            ),
+            BlocProvider(create: (_) => service<HomeBloc>())
           ],
           child: const Home(),
         ),

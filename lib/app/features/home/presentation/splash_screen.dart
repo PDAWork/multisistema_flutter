@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/app/core/widget/snack_bar.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/routes/app_router.dart';
 import 'package:multisitema_flutter/app/routes/router_utils.dart';
 import 'package:multisitema_flutter/app/style/app_theme.dart';

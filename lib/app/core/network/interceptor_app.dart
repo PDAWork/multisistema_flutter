@@ -8,11 +8,11 @@ class InterceptorApp extends QueuedInterceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
       try {
-        final token = sl<TokenUseCase>().getRefreshToken();
+        final token = service<TokenUseCase>().getRefreshToken();
         if (token != '') {
-          await sl<TokenUseCase>().updateToken(token);
+          await service<TokenUseCase>().updateToken(token);
           final response =
-              await sl<AuthRemoteDataSource>().fetch(err.requestOptions);
+              await service<AuthRemoteDataSource>().fetch(err.requestOptions);
           return handler.resolve(response);
         }
       } catch (e) {
@@ -25,7 +25,7 @@ class InterceptorApp extends QueuedInterceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = sl<TokenUseCase>().getAccessToken();
+    final token = service<TokenUseCase>().getAccessToken();
     if (token.isEmpty) {
       super.onRequest(options, handler);
     } else {

@@ -23,93 +23,90 @@ import 'package:multisitema_flutter/app/features/home/domain/repository/splash_s
 import 'package:multisitema_flutter/app/features/home/domain/usecase/drop_down_button_app_use_case.dart';
 import 'package:multisitema_flutter/app/features/home/domain/usecase/home_use_case.dart';
 import 'package:multisitema_flutter/app/features/home/domain/usecase/splash_screen_use_case.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/drop_down_button_app_cubit.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/home_cubit.dart';
-import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen_cubit.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/bloc/drop_down_button_app/drop_down_button_app_bloc.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/bloc/home/home_bloc.dart';
+import 'package:multisitema_flutter/app/features/home/presentation/cubit/splash_screen/splash_screen_cubit.dart';
 import 'package:multisitema_flutter/app/features/information/presentation/information.dart';
 import 'package:multisitema_flutter/app/core/network/api_entrypoints.dart';
 import 'package:multisitema_flutter/app/core/network/interceptor_app.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final sl = GetIt.instance;
+final service = GetIt.instance;
 
 Future<void> initLocatorService() async {
   // Bloc/Cubit
 
-  sl.registerFactory(() => PageViewProvider());
+  service.registerFactory(() => PageViewProvider());
 
-  sl.registerFactory(() => SignInCubit(authUseCase: sl()));
+  service.registerFactory(() => SignInCubit(authUseCase: service()));
 
-  sl.registerFactory(() => SplashScreenCubit(sl()));
+  service.registerFactory(() => SplashScreenCubit(service()));
 
-  sl.registerFactory(() => DropDownButtonAppCubit(
-        sl<DropdownButtonAppUseCase>(),
-      ));
+  service.registerFactory(() => DropDownButtonAppBloc(service()));
 
-  sl.registerFactory(() => HomeCubit(sl<HomeUseCase>()));
+  service.registerFactory(() => HomeBloc(service<HomeUseCase>()));
 
   // UseCases
 
-  sl.registerLazySingleton(() => AuthUseCase(sl()));
-  sl.registerLazySingleton(() => TokenUseCase(sl()));
+  service.registerLazySingleton(() => AuthUseCase(service()));
+  service.registerLazySingleton(() => TokenUseCase(service()));
 
-  sl.registerLazySingleton(() => SplashScreenUseCase(sl()));
+  service.registerLazySingleton(() => SplashScreenUseCase(service()));
 
-  sl.registerLazySingleton(() => DropdownButtonAppUseCase(sl()));
+  service.registerLazySingleton(() => DropdownButtonAppUseCase(service()));
 
-  sl.registerLazySingleton(() => HomeUseCase(sl()));
+  service.registerLazySingleton(() => HomeUseCase(service()));
 
   // Repository
 
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
-        authLocalDataSource: sl(),
-        authRemoteDataSource: sl(),
+  service.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+        authLocalDataSource: service(),
+        authRemoteDataSource: service(),
       ));
 
-  sl.registerLazySingleton<AuthLocalDataSource>(
-    () => AuthLocalDataSourceImpl(sl()),
+  service.registerLazySingleton<AuthLocalDataSource>(
+    () => AuthLocalDataSourceImpl(service()),
   );
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(sl<Dio>()),
+  service.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(service<Dio>()),
   );
 
-  sl.registerLazySingleton<TokenRepository>(
+  service.registerLazySingleton<TokenRepository>(
     () => TokenRepositoryImpl(
-      sl(),
-      sl(),
+      service(),
+      service(),
     ),
   );
 
-  sl.registerLazySingleton<SplashScreenRepository>(
+  service.registerLazySingleton<SplashScreenRepository>(
     () => SplashScreenRepositoryImpl(
-      remoteDataSource: sl(),
-      hiveLocalDataSource: sl(),
-      spLocalDataSource: sl(),
+      remoteDataSource: service(),
+      hiveLocalDataSource: service(),
+      spLocalDataSource: service(),
     ),
   );
 
-
-  sl.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(sl<Dio>()));
-  sl.registerLazySingleton<HiveLocalDataSource>(
+  service.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImpl(service<Dio>()));
+  service.registerLazySingleton<HiveLocalDataSource>(
       () => HiveLocalDataSourceImpl());
-  sl.registerLazySingleton<SPLocalDataSource>(
-      () => SPLocalDataSourceImpl(sl()));
+  service.registerLazySingleton<SPLocalDataSource>(
+      () => SPLocalDataSourceImpl(service()));
 
-  sl.registerLazySingleton<DropdownButtonAppRepository>(
-      () => DropdownButtonAppRepositoryImpl(hiveLocalDataSource: sl()));
+  service.registerLazySingleton<DropdownButtonAppRepository>(
+      () => DropdownButtonAppRepositoryImpl(hiveLocalDataSource: service()));
 
-  sl.registerLazySingleton<HomeRepository>(
-      () => HomeRepositoryImpl(remoteDataSource: sl()));
+  service.registerLazySingleton<HomeRepository>(
+      () => HomeRepositoryImpl(remoteDataSource: service()));
 
-  await sl<HiveLocalDataSource>().initDb();
+  await service<HiveLocalDataSource>().initDb();
 
   // External
   final preferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => preferences);
+  service.registerLazySingleton(() => preferences);
 
-  sl.registerLazySingleton(() {
+  service.registerLazySingleton(() {
     // Отменить PrettyDioLogger в release version kDebug
     return Dio(
       BaseOptions(
