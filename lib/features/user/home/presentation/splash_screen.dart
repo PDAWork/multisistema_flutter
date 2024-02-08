@@ -31,11 +31,11 @@ class SplashScreen extends StatelessWidget {
                   builder: (context, state) {
                     return switch (state) {
                       LoadState(:final firstName) => Text(
-                          "${style().$1} $firstName,",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
+                          "${style().$1}\n$firstName",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       _ => const SizedBox(),

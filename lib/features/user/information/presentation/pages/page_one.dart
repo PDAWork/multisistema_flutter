@@ -20,23 +20,26 @@ class PageOne extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-       Image.asset(
-              path,
-              height: 370,
-            ),
+          Image.asset(
+            path,
+            height: 370,
+          ),
           const SizedBox(height: 20),
           Text(
             header,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: Colors.white),
           ),
           const SizedBox(height: 20),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.white),
           ),
         ],
       ),

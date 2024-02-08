@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/style/color.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
@@ -9,18 +10,58 @@ class DrawerApp extends StatelessWidget {
       child: ListView(
         physics: const PageScrollPhysics(),
         padding: EdgeInsets.zero,
-        shrinkWrap: true,
+        shrinkWrap: false,
         children: [
-          const UserAccountsDrawerHeader(
-            margin: EdgeInsets.zero,
-            currentAccountPicture: Icon(
-              Icons.person,
-              size: 60,
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            decoration: const BoxDecoration(color: primaryColor),
+            child: SafeArea(
+              bottom: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "pahomovdaniil02@yandex.ru",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.white),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "Пахомов Даниил Александрович",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(color: Colors.white),
+                  )
+                ],
+              ),
             ),
-            currentAccountPictureSize: Size.square(1),
-            accountEmail: Text("pahomovdaniil02@yandex.ru"),
-            accountName: Text("Пахомов Даниил Александрович"),
           ),
+          // UserAccountsDrawerHeader(
+          //   margin: EdgeInsets.zero,
+          //   // currentAccountPicture: const Icon(
+          //   //   Icons.person,
+          //   //   size: 32,
+          //   // ),
+          //   // currentAccountPictureSize: const Size.square(1),
+          //   accountEmail: Text(
+          //     "pahomovdaniil02@yandex.ru",
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .bodyMedium!
+          //         .copyWith(color: Colors.white),
+          //   ),
+          //   accountName: Text(
+          //     "Пахомов Даниил Александрович",
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .labelLarge!
+          //         .copyWith(color: Colors.white),
+          //   ),
+          // ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.payment),
@@ -29,7 +70,10 @@ class DrawerApp extends StatelessWidget {
                 //   crossAxisAlignment: CrossAxisAlignment.center,
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   children: [
-                const Text('Баланс 110 руб'),
+                Text(
+              'Баланс 110 руб',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             // Container(
             //   padding: const EdgeInsets.symmetric(
             //     horizontal: 7,
@@ -50,7 +94,10 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.info_outline),
-            title: const Text('О приложении'),
+            title: Text(
+              'О приложении',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ),
           Divider(
             color: Colors.grey.shade400,
@@ -66,7 +113,10 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.build),
-            title: const Text('Настройки'),
+            title: Text(
+              'Настройки',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ),
           // ListTile(
           //   onTap: () {},
@@ -76,7 +126,10 @@ class DrawerApp extends StatelessWidget {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.login_outlined),
-            title: const Text('Выход'),
+            title: Text(
+              'Выход',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ),
         ],
       ),

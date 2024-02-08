@@ -132,6 +132,10 @@ class Information extends StatelessWidget {
                             onPressed: () => AppRouter.router.go(
                               Pages.splashScreen.screenPath,
                             ),
+                            style: ButtonStyle(
+                              textStyle: MaterialStatePropertyAll(
+                                  Theme.of(context).textTheme.labelMedium),
+                            ),
                             child: const Text('ПРОПУСТИТЬ'),
                           ),
                         ),
@@ -186,6 +190,10 @@ class Information extends StatelessWidget {
                               }
                               context.read<PageViewProvider>().next();
                             },
+                            style: ButtonStyle(
+                              textStyle: MaterialStatePropertyAll(
+                                  Theme.of(context).textTheme.labelMedium),
+                            ),
                             child: value.index != 2
                                 ? const Text('ДАЛЬШЕ')
                                 : const Text("НАЧАТЬ РАБОТУ"),
