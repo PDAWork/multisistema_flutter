@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/core/widget/snack_bar.dart';
+import 'package:multisitema_flutter/features/auth/domain/entity/role_entity.dart';
 import 'package:multisitema_flutter/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/routes/app_router.dart';
 import 'package:multisitema_flutter/routes/router_utils.dart';
@@ -134,7 +135,14 @@ class SignIn extends StatelessWidget {
                         showMessageDialog(state.message, context);
                       }
                       if (state is SeccuceState) {
-                        AppRouter.router.go(Pages.info.screenPath);
+                        switch (state.role) {
+                          case RoleEntity.master:
+                            AppRouter.router.go(Pages.homeMaster.screenPath);
+                            break;
+                          case RoleEntity.user:
+                            AppRouter.router.go(Pages.info.screenPath);
+                            break;
+                        }
                       }
                     },
                     builder: (context, state) {

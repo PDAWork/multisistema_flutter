@@ -11,7 +11,11 @@ final class SignInInitial extends SignInState {}
 
 final class LoadingState extends SignInState {}
 
-final class SeccuceState extends SignInState {}
+final class SeccuceState extends SignInState {
+  final RoleEntity role;
+
+ const SeccuceState({required this.role});
+}
 
 final class AuthorizationState extends SignInState {}
 

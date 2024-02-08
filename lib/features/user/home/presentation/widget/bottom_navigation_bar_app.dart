@@ -49,7 +49,8 @@ class BottomNavigationBarApp extends StatelessWidget {
               icon: const Icon(
                 Icons.date_range,
               ),
-              label: DateFormat('dd.MM.yyyy').format(dateBloc!),
+              label:
+                  DateFormat('dd.MM.yyyy').format(dateBloc ?? DateTime.now()),
             ),
             const BottomNavigationBarItem(
               icon: Icon(

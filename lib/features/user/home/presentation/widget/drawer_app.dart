@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multisitema_flutter/style/color.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});

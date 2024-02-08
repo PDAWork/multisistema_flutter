@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multisitema_flutter/features/auth/domain/entity/login_entity.dart';
+import 'package:multisitema_flutter/features/auth/domain/entity/role_entity.dart';
 import 'package:multisitema_flutter/features/auth/domain/usecase/auth_use_case.dart';
 
 import '../../../../core/error/failure.dart';
@@ -22,7 +23,7 @@ class SignInCubit extends Cubit<SignInState> {
 
     result.fold(
         (message) => emit(ErrorState(message: _mapFailureToMessage(message))),
-        (right) => emit(SeccuceState()));
+        (role) => emit(SeccuceState(role: role)));
   }
 
   String _mapFailureToMessage(Failure failure) {

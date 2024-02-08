@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
                 child: BlocConsumer<SplashScreenCubit, SplashScreenState>(
                   listener: (context, state) {
                     if (state is SuccesState) {
-                      AppRouter.router.go(Pages.home.screenPath);
+                      AppRouter.router.go(Pages.homeUser.screenPath);
                     }
                     if (state is ErrorState) {
                       showMessageDialog(state.message, context);

@@ -2,8 +2,9 @@ enum Pages {
   singIn,
   info,
   splashScreen,
-  home,
+  homeUser,
   error,
+  homeMaster,
 }
 
 extension AppPageExtension on Pages {
@@ -12,8 +13,10 @@ extension AppPageExtension on Pages {
       Pages.singIn => "/",
       Pages.info => "/information",
       Pages.splashScreen => "/splash_screen",
-      Pages.home => "/home",
+      Pages.homeUser => "/home_user",
       Pages.error => "/error",
+      // TODO: Handle this case.
+      Pages.homeMaster => '/home_master',
     };
   }
 
@@ -22,8 +25,9 @@ extension AppPageExtension on Pages {
       Pages.singIn => "SINGIN",
       Pages.info => "INFORMATION",
       Pages.splashScreen => "SPLASHSCREEN",
-      Pages.home => "HOME",
+      Pages.homeUser => "HOMEUSER",
       Pages.error => "ERROR",
+      Pages.homeMaster => "HOMEMASTER",
     };
   }
 
@@ -31,7 +35,7 @@ extension AppPageExtension on Pages {
   String get screenTitle {
     return switch (this) {
       Pages.singIn => "Login",
-      Pages.home => "Home",
+      Pages.homeUser => "Home",
       Pages.error => "Error",
       _ => "Home",
     };

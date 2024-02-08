@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multisitema_flutter/di/locator_service.dart';
+import 'package:multisitema_flutter/features/auth/domain/entity/role_entity.dart';
 import 'package:multisitema_flutter/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multisitema_flutter/features/auth/presentation/ui/sign_in.dart';
+import 'package:multisitema_flutter/features/master/home/presentation/ui/home_master.dart';
 import 'package:multisitema_flutter/features/user/home/presentation/bloc/drop_down_button_app/drop_down_button_app_bloc.dart';
 import 'package:multisitema_flutter/features/user/home/presentation/bloc/home/home_bloc.dart';
 import 'package:multisitema_flutter/features/user/home/presentation/cubit/splash_screen/splash_screen_cubit.dart';
@@ -29,7 +31,10 @@ class AppRouter {
           final isLoggedIn = context.read<AuthProvider>().isLoginGet;
           final isLoginRoute = state.matchedLocation == Pages.singIn.screenPath;
           if (isLoggedIn && isLoginRoute) {
-            return Pages.splashScreen.screenPath;
+            return switch (context.read<AuthProvider>().role) {
+              RoleEntity.master => Pages.homeMaster.screenPath,
+              RoleEntity.user => Pages.splashScreen.screenPath,
+            };
           }
           return state.matchedLocation;
         },
@@ -57,8 +62,8 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: Pages.home.screenPath,
-        name: Pages.home.screenName,
+        path: Pages.homeUser.screenPath,
+        name: Pages.homeUser.screenName,
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(
@@ -69,7 +74,11 @@ class AppRouter {
           ],
           child: const Home(),
         ),
-      )
+      ),
+      GoRoute(
+          path: Pages.homeMaster.screenPath,
+          name: Pages.homeMaster.screenName,
+          builder: (_, state) => const HomeMaster()),
     ],
   );
 

@@ -1,4 +1,5 @@
 abstract final class KeySharedPreferences {
+  static const String keyRole = "IDROLE";
   static const String keyRefreshToken = 'REFRESHTOKEN';
   static const String keyAccessToken = "ACCESTOKEN";
   static const String keyLogin = 'LOGIN';

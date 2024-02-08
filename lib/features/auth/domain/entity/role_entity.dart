@@ -1,0 +1,4 @@
+enum RoleEntity {
+  master,
+  user,
+}
