@@ -29,6 +29,13 @@ import 'package:multisitema_flutter/features/user/home/presentation/cubit/splash
 import 'package:multisitema_flutter/features/user/information/presentation/information.dart';
 import 'package:multisitema_flutter/core/network/api_entrypoints.dart';
 import 'package:multisitema_flutter/core/network/interceptor_app.dart';
+import 'package:multisitema_flutter/features/user/pay/data/repository/tariff_repository_impl.dart';
+import 'package:multisitema_flutter/features/user/pay/domain/repository/tariff_repository.dart';
+import 'package:multisitema_flutter/features/user/pay/domain/use_case/pay_use_case.dart';
+import 'package:multisitema_flutter/features/user/pay/domain/use_case/tariff_use_case.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/state/cubit/pay_cubit.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/state/cubit/tariff_cubit.dart';
+import 'package:multisitema_flutter/features/user/pay/data/data_source/tariff_remote_data_source.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,6 +54,15 @@ Future<void> initLocatorService() async {
 
   service.registerFactory(() => HomeBloc(service<HomeUseCase>()));
 
+  service.registerFactory(
+    () => TariffCubit(
+      service<TariffUseCase>(),
+      service<PayUseCase>(),
+    ),
+  );
+
+  service.registerFactory(() => PayCubit());
+
   // UseCases
 
   service.registerLazySingleton(() => AuthUseCase(service()));
@@ -57,6 +73,10 @@ Future<void> initLocatorService() async {
   service.registerLazySingleton(() => DropdownButtonAppUseCase(service()));
 
   service.registerLazySingleton(() => HomeUseCase(service()));
+
+  service
+      .registerLazySingleton(() => TariffUseCase(tariffRepository: service()));
+  service.registerLazySingleton(() => PayUseCase(tariffRepository: service()));
 
   // Repository
 
@@ -99,6 +119,15 @@ Future<void> initLocatorService() async {
 
   service.registerLazySingleton<HomeRepository>(
       () => HomeRepositoryImpl(remoteDataSource: service()));
+
+  service.registerLazySingleton<TariffRemoteDataSource>(
+    () => TariffRemoteDataSourceImpl(dio: service()),
+  );
+  service.registerLazySingleton<TariffRepository>(
+    () => TariffRepositoryImpl(
+      remoteDataSource: service(),
+    ),
+  );
 
   await service<HiveLocalDataSource>().initDb();
 

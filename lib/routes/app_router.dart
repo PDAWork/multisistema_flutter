@@ -13,6 +13,11 @@ import 'package:multisitema_flutter/features/user/home/presentation/home.dart';
 import 'package:multisitema_flutter/features/user/home/presentation/splash_screen.dart';
 import 'package:multisitema_flutter/features/user/information/presentation/information.dart';
 import 'package:multisitema_flutter/core/service/auth_provider.dart';
+import 'package:multisitema_flutter/features/user/pay/domain/entity/pay_entity.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/state/cubit/pay_cubit.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/state/cubit/tariff_cubit.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/ui/pay.dart';
+import 'package:multisitema_flutter/features/user/pay/presentation/ui/tarrif.dart';
 import 'package:provider/provider.dart';
 
 import 'router_utils.dart';
@@ -62,23 +67,49 @@ class AppRouter {
         ),
       ),
       GoRoute(
-        path: Pages.homeUser.screenPath,
-        name: Pages.homeUser.screenName,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (_) => service<DropDownButtonAppBloc>()
-                ..add(DropDownButtonAppInit()),
+          path: Pages.homeUser.screenPath,
+          name: Pages.homeUser.screenName,
+          builder: (context, state) => MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (_) => service<DropDownButtonAppBloc>()
+                      ..add(DropDownButtonAppInit()),
+                  ),
+                  BlocProvider(create: (_) => service<HomeBloc>())
+                ],
+                child: const Home(),
+              ),
+          routes: [
+            GoRoute(
+              path: Pages.tariff.screenPath,
+              name: Pages.tariff.screenName,
+              builder: (context, state) => BlocProvider(
+                create: (context) => service<TariffCubit>()..init(),
+                child: const Tarrif(),
+              ),
+              routes: [
+                GoRoute(
+                  path: Pages.pay.screenPath,
+                  name: Pages.pay.screenName,
+                  builder: (context, state) {
+                    final payEntity = state.extra as PayEntity;
+                    return BlocProvider(
+                      create: (context) =>
+                          service<PayCubit>()..init(payEntity.orderId),
+                      child: Pay(
+                        urlPay: payEntity.ulrPay,
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
-            BlocProvider(create: (_) => service<HomeBloc>())
-          ],
-          child: const Home(),
-        ),
-      ),
+          ]),
       GoRoute(
-          path: Pages.homeMaster.screenPath,
-          name: Pages.homeMaster.screenName,
-          builder: (_, state) => const HomeMaster()),
+        path: Pages.homeMaster.screenPath,
+        name: Pages.homeMaster.screenName,
+        builder: (_, state) => const HomeMaster(),
+      ),
     ],
   );
 

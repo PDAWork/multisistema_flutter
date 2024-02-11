@@ -3,6 +3,8 @@ enum Pages {
   info,
   splashScreen,
   homeUser,
+  pay,
+  tariff,
   error,
   homeMaster,
 }
@@ -15,8 +17,10 @@ extension AppPageExtension on Pages {
       Pages.splashScreen => "/splash_screen",
       Pages.homeUser => "/home_user",
       Pages.error => "/error",
-      // TODO: Handle this case.
+      Pages.pay => 'pay',
+      Pages.tariff => 'tariff',
       Pages.homeMaster => '/home_master',
+      // TODO: Handle this case.
     };
   }
 
@@ -28,6 +32,8 @@ extension AppPageExtension on Pages {
       Pages.homeUser => "HOMEUSER",
       Pages.error => "ERROR",
       Pages.homeMaster => "HOMEMASTER",
+      Pages.pay => "PAY",
+      Pages.tariff => 'TARIFF',
     };
   }
 

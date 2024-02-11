@@ -2,10 +2,12 @@ import 'package:flutter/foundation.dart';
 
 abstract final class ApiEndpoints {
   static const String baseUrl = kDebugMode
-      ? "http://localhost:3000/api/"
+      ? "https://2620-217-107-125-4.ngrok-free.app/api/"
       : kProfileMode
-          ? "http://192.168.31.42:1000/api/"
-          : "http://192.168.31.42:1000/api/";
+          ? "https://2620-217-107-125-4.ngrok-free.app/api/"
+          : "https://2620-217-107-125-4.ngrok-free.app/api/";
+
+  static const String socket = "https://2620-217-107-125-4.ngrok-free.app";
 
   static const String signIn = "auth/signIn";
   static const String refreshToken = "auth/refresh";
@@ -15,4 +17,7 @@ abstract final class ApiEndpoints {
   static const String userProfile = "user/profile";
   static const String userObjects = "user/objects";
   static const String objectMeters = "object/meters";
+
+  static const String tariff = "pay/tariff";
+  static const String pay = "pay/pay";
 }

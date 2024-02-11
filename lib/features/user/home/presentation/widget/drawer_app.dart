@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:multisitema_flutter/routes/app_router.dart';
+import 'package:multisitema_flutter/routes/router_utils.dart';
 import 'package:multisitema_flutter/style/color.dart';
 
 class DrawerApp extends StatelessWidget {
@@ -63,7 +65,10 @@ class DrawerApp extends StatelessWidget {
           //   ),
           // ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context, true);
+              AppRouter.router.pushNamed(Pages.tariff.screenName);
+            },
             leading: const Icon(Icons.payment),
             title:
                 // title: Row(
