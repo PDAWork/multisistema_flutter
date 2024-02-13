@@ -18,7 +18,7 @@ extension AppPageExtension on Pages {
       Pages.homeUser => "/home_user",
       Pages.error => "/error",
       Pages.pay => 'pay',
-      Pages.tariff => 'tariff',
+      Pages.tariff => 'tariff/:objectId',
       Pages.homeMaster => '/home_master',
       // TODO: Handle this case.
     };

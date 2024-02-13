@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multisitema_flutter/features/user/home/presentation/bloc/drop_down_button_app/drop_down_button_app_bloc.dart';
 import 'package:multisitema_flutter/routes/app_router.dart';
 import 'package:multisitema_flutter/routes/router_utils.dart';
 import 'package:multisitema_flutter/style/color.dart';
@@ -66,8 +68,15 @@ class DrawerApp extends StatelessWidget {
           // ),
           ListTile(
             onTap: () {
+              final int objectId =
+                  context.read<DropDownButtonAppBloc>().state.selectItem!.id;
               Navigator.pop(context, true);
-              AppRouter.router.pushNamed(Pages.tariff.screenName);
+              AppRouter.router.pushNamed(
+                Pages.tariff.screenName,
+                pathParameters: {
+                  "objectId": "$objectId",
+                },
+              );
             },
             leading: const Icon(Icons.payment),
             title:

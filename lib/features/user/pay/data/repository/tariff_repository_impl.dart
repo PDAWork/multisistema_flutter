@@ -26,9 +26,10 @@ final class TariffRepositoryImpl implements TariffRepository {
   }
 
   @override
-  Future<Either<Failure, PayEntity>> pay(int tariffId) async {
+  Future<Either<Failure, PayEntity>> pay(int tariffId, int objectId) async {
     try {
-      final payModel = await remoteDataSource.pay(PayDto(tariffId: tariffId));
+      final payModel = await remoteDataSource
+          .pay(PayDto(tariffId: tariffId, objectId: objectId));
       return right(payModel.toEntity());
     } on ServerException catch (_) {
       return left(ServerFailure());

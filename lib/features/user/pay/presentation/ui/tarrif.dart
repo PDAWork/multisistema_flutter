@@ -6,7 +6,8 @@ import 'package:multisitema_flutter/routes/router_utils.dart';
 import 'package:multisitema_flutter/style/color.dart';
 
 class Tarrif extends StatelessWidget {
-  const Tarrif({super.key});
+  const Tarrif({super.key, required this.objectId});
+  final int objectId;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,13 @@ class Tarrif extends StatelessWidget {
       body: BlocConsumer<TariffCubit, TariffState>(
         listener: (context, state) {
           if (state is TariffPay) {
+            print(state.payEntity.orderId);
             AppRouter.router.goNamed(
               Pages.pay.screenName,
               extra: state.payEntity,
+              pathParameters: {
+                "objectId": "$objectId",
+              },
             );
           }
         },
@@ -39,9 +44,10 @@ class Tarrif extends StatelessWidget {
                     child: ListTile(
                       trailing: ElevatedButton(
                         onPressed: () async {
-                          await contex
-                              .read<TariffCubit>()
-                              .onPay(tariffs[index].id);
+                          await contex.read<TariffCubit>().onPay(
+                                tariffId: tariffs[index].id,
+                                objectId: objectId,
+                              );
                         },
                         child: const Text('Купить'),
                       ),

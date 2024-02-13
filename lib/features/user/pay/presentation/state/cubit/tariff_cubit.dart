@@ -21,8 +21,14 @@ class TariffCubit extends Cubit<TariffState> {
     );
   }
 
-  Future<void> onPay(final int idTariff) async {
-    final result = await _useCasePay.call(PayParams(idTariff: idTariff));
+  Future<void> onPay({
+    required final int tariffId,
+    required final int objectId,
+  }) async {
+    final result = await _useCasePay.call(PayParams(
+      tariffId: tariffId,
+      objectId: objectId,
+    ));
     result.fold(
       (l) => emit(TariffError()),
       (pay) => emit(TariffPay(payEntity: pay)),

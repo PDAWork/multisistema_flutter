@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 
 abstract final class ApiEndpoints {
   static const String baseUrl = kDebugMode
-      ? "https://2620-217-107-125-4.ngrok-free.app/api/"
+      ? "https://346e-212-5-179-254.ngrok-free.app/api/"
       : kProfileMode
           ? "https://2620-217-107-125-4.ngrok-free.app/api/"
-          : "https://2620-217-107-125-4.ngrok-free.app/api/";
+          : "https://346e-212-5-179-254.ngrok-free.app/api/";
 
-  static const String socket = "https://2620-217-107-125-4.ngrok-free.app";
+  static const String socket = "https://346e-212-5-179-254.ngrok-free.app";
 
   static const String signIn = "auth/signIn";
   static const String refreshToken = "auth/refresh";

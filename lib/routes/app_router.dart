@@ -83,10 +83,15 @@ class AppRouter {
             GoRoute(
               path: Pages.tariff.screenPath,
               name: Pages.tariff.screenName,
-              builder: (context, state) => BlocProvider(
-                create: (context) => service<TariffCubit>()..init(),
-                child: const Tarrif(),
-              ),
+              builder: (context, state) {
+                final int objectId = int.parse(
+                  state.pathParameters['objectId'] ?? '0',
+                );
+                return BlocProvider(
+                  create: (context) => service<TariffCubit>()..init(),
+                  child: Tarrif(objectId: objectId),
+                );
+              },
               routes: [
                 GoRoute(
                   path: Pages.pay.screenPath,

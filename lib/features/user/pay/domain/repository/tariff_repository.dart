@@ -5,5 +5,5 @@ import 'package:multisitema_flutter/features/user/pay/domain/entity/tariff_entit
 
 abstract interface class TariffRepository {
   Future<Either<Failure, List<TariffEntity>>> getAllTariff();
-  Future<Either<Failure, PayEntity>> pay(int idTariff);
+  Future<Either<Failure, PayEntity>> pay(int tariffId,int objectId);
 }

@@ -12,14 +12,19 @@ class PayUseCase implements UseCase<Either<Failure, PayEntity>, PayParams> {
 
   @override
   Future<Either<Failure, PayEntity>> call(PayParams param) {
-    return _tariffRepository.pay(param.idTariff);
+    return _tariffRepository.pay(
+      param.tariffId,
+      param.objectId,
+    );
   }
 }
 
 final class PayParams {
-  final int idTariff;
+  final int tariffId;
+  final int objectId;
 
   PayParams({
-    required this.idTariff,
+    required this.tariffId,
+    required this.objectId,
   });
 }
