@@ -5,4 +5,5 @@ abstract interface class HiveLocalDataSource {
   Future<bool> initDb();
   Future<Unit> setObject(List<ObjectDto> model);
   Future<List<ObjectDto>> getObject();
+  Future<Unit> clearCacheHive();
 }

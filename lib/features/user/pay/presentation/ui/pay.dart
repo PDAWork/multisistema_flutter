@@ -24,6 +24,7 @@ class _PayState extends State<Pay> {
   void initState() {
     super.initState();
     controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(
         Uri.parse(
           widget.urlPay,

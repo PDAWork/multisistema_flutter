@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return Provider(
       create: (context) => AuthProvider(),
       child: MaterialApp.router(
-        
         routeInformationProvider: AppRouter.router.routeInformationProvider,
         routeInformationParser: AppRouter.router.routeInformationParser,
         routerDelegate: AppRouter.router.routerDelegate,

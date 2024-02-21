@@ -1,5 +1,6 @@
 class ServerException implements Exception {}
 
+class ChacheException implements Exception {}
 class UserException implements Exception {
   final String errorMessage;
 

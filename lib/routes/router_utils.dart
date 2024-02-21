@@ -5,6 +5,7 @@ enum Pages {
   homeUser,
   pay,
   tariff,
+  tariffObject,
   error,
   homeMaster,
 }
@@ -19,6 +20,7 @@ extension AppPageExtension on Pages {
       Pages.error => "/error",
       Pages.pay => 'pay',
       Pages.tariff => 'tariff/:objectId',
+      Pages.tariffObject => 'object_tariff',
       Pages.homeMaster => '/home_master',
       // TODO: Handle this case.
     };
@@ -34,6 +36,7 @@ extension AppPageExtension on Pages {
       Pages.homeMaster => "HOMEMASTER",
       Pages.pay => "PAY",
       Pages.tariff => 'TARIFF',
+      Pages.tariffObject => 'OBJECTTARIFF',
     };
   }
 

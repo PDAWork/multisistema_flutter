@@ -41,4 +41,15 @@ class HiveLocalDataSourceImpl implements HiveLocalDataSource {
       throw HiveDataException();
     }
   }
+
+  @override
+  Future<Unit> clearCacheHive() async {
+    try {
+      final objectBox = Hive.box<ObjectDto>(_kObjectBox);
+      await objectBox.clear();
+      return unit;
+    } catch (_) {
+      throw HiveDataException();
+    }
+  }
 }
