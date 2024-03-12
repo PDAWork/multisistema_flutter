@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
@@ -20,6 +21,21 @@ class DrawerApp extends StatelessWidget {
             currentAccountPictureSize: Size.square(1),
             accountEmail: Text("pahomovdaniil02@yandex.ru"),
             accountName: Text("Пахомов Даниил Александрович"),
+          ),
+          ListTile(
+            onTap: () {},
+            leading: SvgPicture.asset(
+              'assets/logo_arshin.svg',
+              colorFilter:  ColorFilter.mode(
+                Colors.grey.shade700,
+                BlendMode.srcIn,
+              ),
+              width: 24,
+            ),
+            title: Text(
+              'Выгрузка в Аршин',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ),
           ListTile(
             onTap: () {},

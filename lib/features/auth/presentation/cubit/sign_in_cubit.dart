@@ -10,6 +10,7 @@ part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {
   final AuthUseCase authUseCase;
+
   SignInCubit({required this.authUseCase}) : super(SignInInitial());
 
   Future<void> signIn(String login, String password) async {
@@ -28,7 +29,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   String _mapFailureToMessage(Failure failure) {
     return switch (failure) {
-      ServerFailure() => "Сервер не отвечает зайдите позже",
+      ServerFailure() => "Ошибка сервера отвечает зайдите позже",
       UserFailure(:final errorMessage) => errorMessage,
       // ServerFailure => "Ошибка сервера",
       _ => ""

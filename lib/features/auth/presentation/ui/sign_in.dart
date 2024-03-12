@@ -128,6 +128,7 @@ class SignIn extends StatelessWidget {
 
                   BlocConsumer<SignInCubit, SignInState>(
                     listener: (context, state) {
+                      print(state);
                       if (state is AuthorizationState) {
                         AppRouter.router.go(Pages.info.screenPath);
                       }

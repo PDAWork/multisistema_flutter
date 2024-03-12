@@ -11,6 +11,13 @@ class HomeMaster extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Мастер'),
       ),
+      body: ListView.builder(itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text('sda'),
+          ),
+        );
+      }),
     );
   }
 }
