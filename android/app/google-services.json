@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "837344388239",
+    "firebase_url": "https://multisistema-monitoring.firebaseio.com",
+    "project_id": "multisistema-monitoring",
+    "storage_bucket": "multisistema-monitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837344388239:android:d6e61766da4ef58aba3cfa",
+        "android_client_info": {
+          "package_name": "com.example.multisitema_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837344388239-mbmtbff2k13b1ve4pup8j8eururvv2if.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJwDjiCHoPAcdVekmbDjxyOqYZ_nd2pO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837344388239-mbmtbff2k13b1ve4pup8j8eururvv2if.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "837344388239-adgaqoogr8036jbieub9eb473f8i09hu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.multisistema.monitoring",
+                "app_store_id": "1162290650"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837344388239:android:c1132b827b19b3e7ba3cfa",
+        "android_client_info": {
+          "package_name": "com.multisistema.monitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837344388239-mbmtbff2k13b1ve4pup8j8eururvv2if.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJwDjiCHoPAcdVekmbDjxyOqYZ_nd2pO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837344388239-mbmtbff2k13b1ve4pup8j8eururvv2if.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "837344388239-adgaqoogr8036jbieub9eb473f8i09hu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.multisistema.monitoring",
+                "app_store_id": "1162290650"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

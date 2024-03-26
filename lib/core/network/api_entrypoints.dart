@@ -21,4 +21,6 @@ abstract final class ApiEndpoints {
   static const String tariff = "pay/tariff";
   static const String pay = "pay/pay";
   static const String allTariffObject = "pay/allTariffObject";
+
+  static const String addTokenDevise = "settings/tokenDevise";
 }

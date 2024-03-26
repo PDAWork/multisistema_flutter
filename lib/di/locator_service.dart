@@ -1,5 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:multisitema_flutter/core/firebase/firebase_options.dart';
 import 'package:multisitema_flutter/features/auth/data/data_source/auth_local_data_source.dart';
 import 'package:multisitema_flutter/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:multisitema_flutter/features/auth/data/repository/auth_repository_impl.dart';
@@ -49,6 +53,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 final service = GetIt.instance;
 
 Future<void> initLocatorService() async {
+  await dotenv.load(fileName: ".env");
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  final firebaseMessaging = FirebaseMessaging.instance;
+  await firebaseMessaging.requestPermission(
+    alert: true,
+    announcement: true,
+    badge: true,
+    carPlay: false,
+    criticalAlert: true,
+    provisional: true,
+    sound: true,
+  );
+
   // Bloc/Cubit
 
   service.registerFactory(() => SignInCubit(authUseCase: service()));
@@ -96,6 +117,7 @@ Future<void> initLocatorService() async {
   service.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
         authLocalDataSource: service(),
         authRemoteDataSource: service(),
+        firebaseMessaging: firebaseMessaging,
       ));
 
   service.registerLazySingleton<AuthLocalDataSource>(

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:multisitema_flutter/core/error/exeption.dart';
 import 'package:multisitema_flutter/features/auth/data/model/token_dto.dart';
@@ -9,6 +10,9 @@ import '../model/login_dto.dart';
 abstract interface class AuthRemoteDataSource {
   // /api/auth/signIn
   Future<UserDto> signIn(LoginDto loginDto);
+
+  // /api/settings/tokenDevise
+  Future<Unit> addTokenDevice(String tokenDevise);
 
   // /api/auth/refresh
   Future<TokenDto> refresh(String token);
@@ -50,6 +54,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         throw UserException(errorMessage: e.response?.data["errorMessage"]);
       }
       throw Exception();
+    }
+  }
+
+  @override
+  Future<Unit> addTokenDevice(String tokenDevise) async {
+    try {
+      await _dio.post(
+        ApiEndpoints.addTokenDevise,
+        data: {
+          "tokenDevise": tokenDevise,
+        },
+      );
+      return unit;
+    } on DioException catch (_) {
+      rethrow;
     }
   }
 
